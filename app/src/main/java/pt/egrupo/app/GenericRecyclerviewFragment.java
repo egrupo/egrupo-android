@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import pt.egrupo.app.utils.endless.EndlessRecyclerOnScrollListener;
 import pt.egrupo.app.utils.endless.EndlessScroll;
 
@@ -28,7 +29,7 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
     public EgrupoActivity mActivity;
 
     @Bind(R.id.lv)public RecyclerView lv;
-    @Bind(R.id.swipe)private SwipeRefreshLayout mSwipe;
+    @Bind(R.id.swipe)SwipeRefreshLayout mSwipe;
 
     public EndlessRecyclerOnScrollListener mRecyclerOnScrollListener;
 
@@ -39,6 +40,8 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
         mActivity = (EgrupoActivity)getActivity();
 
         View v = inflater.inflate(R.layout.fragment_generic_recyclerview, container, false);
+
+        ButterKnife.bind(this,v);
 
         //Add On Scroll AND Set Layout Manager
         if(this instanceof EndlessScroll) {

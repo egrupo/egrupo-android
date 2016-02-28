@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:info="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +9,68 @@
     tools:context=".views.EscoteiroProfileActivity"
     tools:showIn="@layout/activity_escoteiro_profile">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivIconPessoal"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/ic_info_pessoal"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@+id/ivIconPessoal">
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoIdAssociativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Número Associativo" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNomeCompleto"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Nome Completo"/>
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoTotem"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Totem"/>
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoCargo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Cargo"/>
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoPatrulha"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Patrulha"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

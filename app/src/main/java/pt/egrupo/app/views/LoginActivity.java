@@ -3,6 +3,7 @@ package pt.egrupo.app.views;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +43,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pt.egrupo.app.App;
 import pt.egrupo.app.R;
+import pt.egrupo.app.models.User;
+import pt.egrupo.app.network.HTTPStatus;
 import pt.egrupo.app.network.SimpleTask;
+import pt.egrupo.app.utils.ELog;
+import pt.egrupo.app.utils.Globals;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -51,16 +61,21 @@ public class LoginActivity extends AppCompatActivity {
      */
 
     // UI references.
-    @Bind(R.id.email)private EditText mEmailView;
-    @Bind(R.id.password)private EditText mPasswordView;
-    @Bind(R.id.login_progress)private View mProgressView;
-    @Bind(R.id.login_form)private View mLoginFormView;
+    @Bind(R.id.username)EditText mUsernameView;
+    @Bind(R.id.password)EditText mPasswordView;
+    @Bind(R.id.login_progress)View mProgressView;
+    @Bind(R.id.login_form)View mLoginFormView;
 
     boolean isLogging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(App.isLogged()){
+            goToHome();
+        }
+
         setContentView(R.layout.activity_login);
         // Set up the login form.
         ButterKnife.bind(this);
@@ -94,11 +109,11 @@ public class LoginActivity extends AppCompatActivity {
             return;
 
         // Reset errors.
-        mEmailView.setError(null);
+        mUsernameView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -112,13 +127,13 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+        if (TextUtils.isEmpty(username)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+            focusView = mUsernameView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+        } else if (!isEmailValid(username)) {
+            mUsernameView.setError(getString(R.string.error_invalid_email));
+            focusView = mUsernameView;
             cancel = true;
         }
 
@@ -133,7 +148,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+//        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -144,8 +160,11 @@ public class LoginActivity extends AppCompatActivity {
     public void login(){
 
         HashMap<String,String> mParams = new HashMap<>();
-        mParams.put("username",mEmailView.getText().toString());
+        mParams.put("username",mUsernameView.getText().toString());
         mParams.put("password",mPasswordView.getText().toString());
+        mParams.put("grant_type","password");
+        mParams.put("client_id",Globals.CLIENT_ID);
+        mParams.put("client_secret",Globals.CLIENT_SECRET);
 
         new SimpleTask((App) getApplication(), new SimpleTask.SimpleTaskHelper() {
             @Override
@@ -162,15 +181,77 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void backgroundPostExecute(int code, String result) {
 
+                if(code == HTTPStatus.OK){
+                    try {
+                        JSONObject response = new JSONObject(result);
+                        App.saveAccessToken(response.getString("access_token"));
+                        App.saveRefreshToken(response.getString("refresh_token"));
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void mainPostExecute(int code, String result) {
+                ELog.d("LoginAct", "Result(" + code + "): " + result);
+                if(code == HTTPStatus.OK) {
+                    getMe();
+                } else {
+                    isLogging = false;
+                    showProgress(false);
+                    if(code == HTTPStatus.UNAUTHORIZED){
+                        //invalid credentials
+                    }
+                }
+            }
+        }, Globals.OAUTH,SimpleTask.TYPE_POST,mParams).execute();
+    }
+
+    public void getMe(){
+
+        new SimpleTask((App) getApplication(), new SimpleTask.SimpleTaskHelper() {
+            @Override
+            public void onPreExecute() {
+
+            }
+
+            @Override
+            public void backgroundPreExecute() {
+
+            }
+
+            @Override
+            public void backgroundPostExecute(int code, String result) {
+                ELog.d("LoginAct", "Result(" + code + "): " + result);
+                if(code == HTTPStatus.OK){
+
+                    User me = new Gson().fromJson(result,User.class);
+                    App.saveUser(me);
+                    App.saveBaseEndpoint(me.getOrganization_slug());
+                    App.saveDivisao(me.getDivisao());
+                } else {
+
+                }
+
             }
 
             @Override
             public void mainPostExecute(int code, String result) {
                 isLogging = false;
                 showProgress(false);
+                if(code == HTTPStatus.OK){
+                    goToHome();
+                }
 
             }
-        },App.BASE_ENDPOINT+"/login",SimpleTask.TYPE_POST,mParams).execute();
+        },Globals.ME,SimpleTask.TYPE_GET).execute();
+    }
+
+    public void goToHome(){
+        Intent i = new Intent(this,HomeActivity.class);
+        startActivity(i);
+        this.finish();
     }
 
     /**

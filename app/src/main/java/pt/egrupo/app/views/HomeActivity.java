@@ -1,33 +1,31 @@
 package pt.egrupo.app.views;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import pt.egrupo.app.App;
 import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.TabsAdapter;
 import pt.egrupo.app.views.frags.AtividadesFragment;
-import pt.egrupo.app.views.frags.ElementosFragment;
+import pt.egrupo.app.views.frags.EscoteirosFragment;
 import pt.egrupo.app.views.frags.HomeFragment;
 
 public class HomeActivity extends EgrupoActivity
@@ -44,6 +42,13 @@ public class HomeActivity extends EgrupoActivity
 
     private ViewPager mViewPager;
 
+    public static final int PAGE_HOME = 0;
+    public static final int PAGE_ESCOTEIROS = 1;
+    public static final int PAGE_ATIVIDADES = 2;
+    int currentPosition = 0;
+
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +56,24 @@ public class HomeActivity extends EgrupoActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        setTitle(App.getOrganizationSlug());
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                switch (currentPosition){
+                    case PAGE_ESCOTEIROS:
+                        Snackbar.make(view, "Criar Escoteiro", Snackbar.LENGTH_SHORT).show();
+                        break;
+                    case PAGE_ATIVIDADES:
+                        Snackbar.make(view, "Criar Atividade", Snackbar.LENGTH_SHORT).show();
+                        break;
+                }
+
             }
         });
+        fab.hide();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,22 +82,62 @@ public class HomeActivity extends EgrupoActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawerNavigationHeader(navigationView.getHeaderView(0));
         navigationView.setNavigationItemSelectedListener(this);
 
         //pager
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mAdapter = new TabsAdapter(getSupportFragmentManager());
-        mAdapter.addFragment(new HomeFragment(),"Home");
-        mAdapter.addFragment(new ElementosFragment(),"Elementos");
+        mAdapter.addFragment(new HomeFragment(),"Início");
+        mAdapter.addFragment(new EscoteirosFragment(),"Escoteiros");
         mAdapter.addFragment(new AtividadesFragment(),"Atividades");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                currentPosition = tab.getPosition();
+                mViewPager.setCurrentItem(currentPosition,true);
+                switch(tab.getPosition()){
+                    case PAGE_HOME:
+                        fab.hide();
+                        break;
+                    case PAGE_ESCOTEIROS:
+                        fab.show();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_escoteiro, getTheme()));
+                        } else {
+                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_escoteiro));
+                        }
+                        break;
+                    case PAGE_ATIVIDADES:
+                        fab.show();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_atividade, getTheme()));
+                        } else {
+                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_atividade));
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         mCoord = (CoordinatorLayout)findViewById(R.id.coordinator);
         appBarLayout = (AppBarLayout)findViewById(R.id.appbar_layout);
@@ -121,21 +176,13 @@ public class HomeActivity extends EgrupoActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch(item.getItemId()){
+            case R.id.nav_logout:
+                App.logout();
+                Intent i = new Intent(this,LoginActivity.class);
+                startActivity(i);
+                this.finish();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -143,39 +190,11 @@ public class HomeActivity extends EgrupoActivity
         return true;
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+    public void drawerNavigationHeader(View headerView){
+        ((TextView)headerView.findViewById(R.id.tvName)).setText(App.getUsername());
+        ((TextView)headerView.findViewById(R.id.tvEmail)).setText(App.getEmail());
     }
+
+
 
 }

@@ -95,7 +95,7 @@ public class SimpleTask extends AsyncTask<String, String, String> {
                 }
             }
 
-            ELog.d("Oi", "GET Endpoint is: " + endpoint);
+            ELog.d("SimpleTask", "GET Request: " + endpoint);
         } else if(type == TYPE_POST) {
 
             FormEncodingBuilder builder = new FormEncodingBuilder();
@@ -117,6 +117,7 @@ public class SimpleTask extends AsyncTask<String, String, String> {
             }
 
             requestBody = builder.build();
+            ELog.d("SimpleTask", "POST Request: " + endpoint);
         }
 
         OkHttpClient client = new OkHttpClient();

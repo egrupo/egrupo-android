@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".views.LoginActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,11 +24,13 @@
         <activity
             android:name=".views.EscoteiroProfileActivity"
             android:label="@string/title_activity_escoteiro_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".views.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
