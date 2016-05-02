@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import pt.egrupo.app.App;
 import pt.egrupo.app.GenericRecyclerviewFragment;
@@ -32,6 +34,9 @@ import pt.egrupo.app.utils.Utils;
 import pt.egrupo.app.utils.endless.EndlessRecyclerOnScrollListener;
 import pt.egrupo.app.utils.endless.EndlessRecyclerViewAdapter;
 import pt.egrupo.app.views.EscoteiroProfileActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by rsantos on 25/02/16.
@@ -49,50 +54,20 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
 
     @Override
     public void fetchData(int current_page) {
-
-        new SimpleTask((App) mActivity.getApplication(), new SimpleTask.SimpleTaskHelper() {
+        app.api.getEscoteiros(App.getDivisao()).enqueue(new Callback<List<Escoteiro>>() {
             @Override
-            public void onPreExecute() {
-
+            public void onResponse(Call<List<Escoteiro>> call, Response<List<Escoteiro>> response) {
+                mItems = new ArrayList<>();
+                mItems.addAll(response.body());
+                onFetchDataSuccess();
+                setContent();
             }
 
             @Override
-            public void backgroundPreExecute() {
-
+            public void onFailure(Call<List<Escoteiro>> call, Throwable t) {
+                onFetchDataFailure();
             }
-
-            @Override
-            public void backgroundPostExecute(int code, String result) {
-                ELog.d("ElementosFrag", "Result(" + code + "): " + result);
-
-                if(code == HTTPStatus.OK){
-                    try {
-                        JSONArray jarray = new JSONArray(result);
-
-                        Gson gson =  new Gson();
-                        mItems = new ArrayList<Escoteiro>();
-                        for(int i = 0 ; i < jarray.length() ; i++ ){
-                            mItems.add(0,gson.fromJson(jarray.getJSONObject(i).toString(),Escoteiro.class));
-                        }
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
-                } else {
-
-                }
-            }
-
-            @Override
-            public void mainPostExecute(int code, String result) {
-                if(code == HTTPStatus.OK){
-                    onFetchDataSuccess();
-                    setContent();
-                } else {
-                    onFetchDataFailure();
-                }
-            }
-        },App.getBasePoint()+"/divisao/"+App.getDivisao()+"/escoteiros",SimpleTask.TYPE_GET).execute();
-
+        });
     }
 
     @Override
@@ -139,7 +114,7 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
             vh.tvIdAssociativo.setText(e.getId_associativo()+"");
 
             Glide.with(mActivity)
-                    .load(R.drawable.default_pic)
+                    .load(App.getAvatarUrl(e.getId()))
                     .bitmapTransform(mTransform)
                     .placeholder(R.drawable.default_pic)
                     .into(vh.ivAvatar);

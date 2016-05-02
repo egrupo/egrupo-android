@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
                 }
 
             }
-        },App.getBasePoint()+"/divisao/"+App.getDivisao()+"/avisos",SimpleTask.TYPE_GET).execute();
+        },App.getBasePoint()+"divisao/"+App.getDivisao()+"/avisos",SimpleTask.TYPE_GET).execute();
     }
 
 

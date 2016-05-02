@@ -230,6 +230,7 @@ public class LoginActivity extends AppCompatActivity {
                     App.saveUser(me);
                     App.saveBaseEndpoint(me.getOrganization_slug());
                     App.saveDivisao(me.getDivisao());
+                    ((App)getApplication()).initApi();
                 } else {
 
                 }
@@ -289,11 +290,6 @@ public class LoginActivity extends AppCompatActivity {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
 
 }
 

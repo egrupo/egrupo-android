@@ -16,6 +16,7 @@
             android:layout_marginLeft="16dp"
             android:layout_centerVertical="true"
             android:src="@drawable/default_pic"
+            android:scaleType="fitCenter"
             />
 
         <RelativeLayout

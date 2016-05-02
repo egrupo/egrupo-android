@@ -27,6 +27,7 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
 
     public ArrayList<Entity> mItems;
     public EgrupoActivity mActivity;
+    public App app;
 
     @Bind(R.id.lv)public RecyclerView lv;
     @Bind(R.id.swipe)SwipeRefreshLayout mSwipe;
@@ -38,6 +39,7 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mActivity = (EgrupoActivity)getActivity();
+        app = (App)mActivity.getApplication();
 
         View v = inflater.inflate(R.layout.fragment_generic_recyclerview, container, false);
 

@@ -78,7 +78,7 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
                     onFetchDataFailure();
                 }
             }
-        },App.getBasePoint()+"/divisao/"+App.getDivisao()+"/atividades",SimpleTask.TYPE_GET).execute();
+        },App.getBasePoint()+"divisao/"+App.getDivisao()+"/atividades",SimpleTask.TYPE_GET).execute();
     }
 
     @Override

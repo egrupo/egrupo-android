@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
@@ -43,12 +44,48 @@
 
     <include layout="@layout/content_escoteiro_profile" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@mipmap/ic_add_escoteiro"
-        android:layout_margin="@dimen/fab_margin" />
+        android:layout_margin="@dimen/fab_margin" />-->
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        fab:menu_fab_label="Adicionar desafio"
+        >
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_etapa_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_add_escoteiro"
+            fab:fab_size="mini"
+            fab:fab_label="1ª Etapa" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_etapa_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_add_escoteiro"
+            fab:fab_size="mini"
+            fab:fab_label="2ª Etapa" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_etapa_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_add_escoteiro"
+            fab:fab_size="mini"
+            fab:fab_label="3ª Etapa" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>

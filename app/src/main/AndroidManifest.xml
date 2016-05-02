@@ -3,6 +3,7 @@
     package="pt.egrupo.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -31,6 +32,9 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="60d47bcb3a42744b1a7ba34a7e7e273a710ad9e8" />
     </application>
 
 </manifest>
