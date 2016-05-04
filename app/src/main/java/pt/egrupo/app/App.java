@@ -36,6 +36,8 @@ public class App extends Application {
         }
     }
 
+
+
     public static String getAccessToken(){
         return mPrefs.getString("access_token","");
     }

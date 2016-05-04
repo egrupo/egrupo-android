@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,8 +21,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import pt.egrupo.app.App;
-import pt.egrupo.app.EgrupoActivity;
-import pt.egrupo.app.GenericRecyclerviewFragment;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Lembrete;
 import pt.egrupo.app.network.HTTPStatus;

@@ -1,7 +1,7 @@
 package pt.egrupo.app.models;
 
 /**
- * Created by ruie on 27/02/16.
+ * Created by ruie on 04/05/16.
  */
 public class Lembrete {
 
@@ -27,4 +27,5 @@ public class Lembrete {
     public void setLabel(String label) {
         this.label = label;
     }
+
 }

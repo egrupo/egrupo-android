@@ -1,9 +1,12 @@
 package pt.egrupo.app.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by rsantos on 25/02/16.
  */
-public class Atividade {
+public class Atividade implements Parcelable {
 
     int divisao;
     int id;
@@ -16,6 +19,34 @@ public class Atividade {
 
     public Atividade(){
 
+    }
+
+    public Atividade(Parcel in){
+        divisao = in.readInt();
+        id = in.readInt();
+        nome = in.readString();
+        ano = in.readString();
+        trimestre = in.readInt();
+        local = in.readString();
+        duracao = in.readString();
+        performed_at = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(divisao);
+        parcel.writeInt(id);
+        parcel.writeString(nome);
+        parcel.writeString(ano);
+        parcel.writeInt(trimestre);
+        parcel.writeString(local);
+        parcel.writeString(duracao);
+        parcel.writeString(performed_at);
     }
 
     public int getDivisao() {
@@ -81,4 +112,14 @@ public class Atividade {
     public void setPerformed_at(String performed_at) {
         this.performed_at = performed_at;
     }
+
+    public static final Creator<Atividade> CREATOR = new Creator<Atividade>() {
+        public Atividade createFromParcel(Parcel source) {
+            return new Atividade(source);
+        }
+
+        public Atividade[] newArray(int size) {
+            return new Atividade[size];
+        }
+    };
 }

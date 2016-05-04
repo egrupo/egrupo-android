@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by rsantos on 25/02/16.
  */
@@ -31,6 +33,7 @@ public class Escoteiro implements Parcelable {
     @SerializedName("morada")String morada;
     @SerializedName("autoriza_imagem")int autoriza_imagem;
     @SerializedName("ficha_inscricao")int ficha_inscricao;
+    List<Progresso> progresso;
 
     public Escoteiro(){
 
@@ -228,6 +231,14 @@ public class Escoteiro implements Parcelable {
         this.ficha_inscricao = ficha_inscricao;
     }
 
+    public List<Progresso> getProgresso() {
+        return progresso;
+    }
+
+    public void setProgresso(List<Progresso> progresso) {
+        this.progresso = progresso;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -267,4 +278,11 @@ public class Escoteiro implements Parcelable {
             return new Escoteiro[size];
         }
     };
+
+    public boolean temProva(int divisao,int etapa,int prova){
+        if(progresso == null)
+            return false;
+
+        return true;
+    }
 }

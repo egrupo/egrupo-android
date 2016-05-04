@@ -1,5 +1,7 @@
 package pt.egrupo.app.views.frags;
 
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pt.egrupo.app.App;
 import pt.egrupo.app.GenericRecyclerviewFragment;
@@ -23,6 +26,10 @@ import pt.egrupo.app.network.HTTPStatus;
 import pt.egrupo.app.network.SimpleTask;
 import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.endless.EndlessRecyclerViewAdapter;
+import pt.egrupo.app.views.AtividadeActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by rsantos on 25/02/16.
@@ -37,48 +44,20 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
     @Override
     public void fetchData(int current_page) {
 
-        new SimpleTask((App) mActivity.getApplication(), new SimpleTask.SimpleTaskHelper() {
+        app.api.getAtividades(App.getDivisao()).enqueue(new Callback<List<Atividade>>() {
             @Override
-            public void onPreExecute() {
-
+            public void onResponse(Call<List<Atividade>> call, Response<List<Atividade>> response) {
+                mItems = new ArrayList<>();
+                mItems.addAll(response.body());
+                onFetchDataSuccess();
+                setContent();
             }
 
             @Override
-            public void backgroundPreExecute() {
-
+            public void onFailure(Call<List<Atividade>> call, Throwable t) {
+                onFetchDataFailure();
             }
-
-            @Override
-            public void backgroundPostExecute(int code, String result) {
-                ELog.d("AtividadesFrag", "Result(" + code + "): " + result);
-
-                if(code == HTTPStatus.OK){
-                    try {
-                        JSONArray jarray = new JSONArray(result);
-
-                        Gson gson =  new Gson();
-                        mItems = new ArrayList<>();
-                        for(int i = 0 ; i < jarray.length() ; i++ ){
-                            mItems.add(0,gson.fromJson(jarray.getJSONObject(i).toString(),Atividade.class));
-                        }
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
-                } else {
-
-                }
-            }
-
-            @Override
-            public void mainPostExecute(int code, String result) {
-                if(code == HTTPStatus.OK){
-                    onFetchDataSuccess();
-                    setContent();
-                } else {
-                    onFetchDataFailure();
-                }
-            }
-        },App.getBasePoint()+"divisao/"+App.getDivisao()+"/atividades",SimpleTask.TYPE_GET).execute();
+        });
     }
 
     @Override
@@ -125,14 +104,17 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             vh.tvTrimestre.setText(a.getTrimestre()+"º trimestre");
             vh.tvData.setText(a.getPerformed_at());
 
+            vh.cardContainer.setTag(a);
+
         }
 
-        public class AtividadesViewHolder extends RecyclerView.ViewHolder {
+        public class AtividadesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             TextView tvName;
             TextView tvLocal;
             TextView tvData;
             TextView tvTrimestre;
+            CardView cardContainer;
 
             public AtividadesViewHolder(View v) {
                 super(v);
@@ -141,8 +123,16 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
                 tvLocal = (TextView)v.findViewById(R.id.tvLocal);
                 tvData = (TextView)v.findViewById(R.id.tvData);
                 tvTrimestre = (TextView)v.findViewById(R.id.tvTrimestre);
+                cardContainer = (CardView)v.findViewById(R.id.cardAtividades);
+                cardContainer.setOnClickListener(this);
             }
 
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), AtividadeActivity.class);
+                i.putExtra("atividade",(Atividade)view.getTag());
+                startActivity(i);
+            }
         }
 
     }
