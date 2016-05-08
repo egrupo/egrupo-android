@@ -3,9 +3,11 @@ package pt.egrupo.app.network;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Response;
 import pt.egrupo.app.models.Atividade;
 import pt.egrupo.app.models.Escoteiro;
 
+import pt.egrupo.app.models.Presenca;
 import pt.egrupo.app.models.Progresso;
 import pt.egrupo.app.models.Token;
 import retrofit2.Call;
@@ -28,7 +30,16 @@ public interface EgrupoApi {
     @GET("divisao/{divisao}/atividades")
     Call<List<Atividade>> getAtividades(@Path("divisao")int divisao);
 
+    @GET("atividade/{id}/presencas")
+    Call<List<Presenca>> getPresencas(@Path("id")int id);
+
     @GET("escoteiro/{id}/progresso")
     Call<List<Progresso>> getProgresso(@Path("id")int id);
+
+    @POST("escoteiro/{id}/progresso")
+    Call<List<Progresso>> postProgresso(@Path("id")int id,@QueryMap Map<String,String> params);
+
+    @GET("escoteiros")
+    Call<List<Escoteiro>> getAllEscoteiros();
 
 }

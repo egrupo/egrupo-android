@@ -16,6 +16,9 @@ public class Atividade implements Parcelable {
     String local;
     String duracao;
     String performed_at;
+    String infos;
+    String descricao;
+    int noites_campo;
 
     public Atividade(){
 
@@ -30,6 +33,9 @@ public class Atividade implements Parcelable {
         local = in.readString();
         duracao = in.readString();
         performed_at = in.readString();
+        infos = in.readString();
+        descricao = in.readString();
+        noites_campo = in.readInt();
     }
 
     @Override
@@ -47,6 +53,9 @@ public class Atividade implements Parcelable {
         parcel.writeString(local);
         parcel.writeString(duracao);
         parcel.writeString(performed_at);
+        parcel.writeString(infos);
+        parcel.writeString(descricao);
+        parcel.writeInt(noites_campo);
     }
 
     public int getDivisao() {
@@ -111,6 +120,30 @@ public class Atividade implements Parcelable {
 
     public void setPerformed_at(String performed_at) {
         this.performed_at = performed_at;
+    }
+
+    public String getInformacoes() {
+        return infos;
+    }
+
+    public void setInformacoes(String informacoes) {
+        this.infos = informacoes;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public int getNoites() {
+        return noites_campo;
+    }
+
+    public void setNoites(int noites) {
+        this.noites_campo = noites;
     }
 
     public static final Creator<Atividade> CREATOR = new Creator<Atividade>() {

@@ -3,6 +3,8 @@ package pt.egrupo.app.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import pt.egrupo.app.utils.ELog;
+
 /**
  * Created by ruie on 04/05/16.
  */

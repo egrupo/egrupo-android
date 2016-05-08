@@ -5,11 +5,18 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 import com.crashlytics.android.Crashlytics;
+
+import java.util.List;
+
 import io.fabric.sdk.android.Fabric;
+import pt.egrupo.app.models.Escoteiro;
 import pt.egrupo.app.models.User;
 import pt.egrupo.app.network.ApiManager;
 import pt.egrupo.app.network.EgrupoApi;
 import pt.egrupo.app.utils.ELog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by rsantos on 25/02/16.
@@ -101,11 +108,25 @@ public class App extends Application {
 
     public static String getAvatarUrl(int id){
         String url ="http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?w=100&h=100&access_token="+App.getAccessToken();
-        ELog.d("App", "Url for mini avatar is: " + url);
+//        ELog.d("App", "Url for mini avatar is: " + url);
         return url;
     }
 
     public static String getBigAvatarUrl(int id){
         return "http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?access_token="+App.getAccessToken();
+    }
+
+    public void baseEscoteiros(){
+        api.getAllEscoteiros().enqueue(new Callback<List<Escoteiro>>() {
+            @Override
+            public void onResponse(Call<List<Escoteiro>> call, Response<List<Escoteiro>> response) {
+                //save to database
+            }
+
+            @Override
+            public void onFailure(Call<List<Escoteiro>> call, Throwable t) {
+                //error on rebasing. need to fallback to something
+            }
+        });
     }
 }

@@ -231,6 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                     App.saveBaseEndpoint(me.getOrganization_slug());
                     App.saveDivisao(me.getDivisao());
                     ((App)getApplication()).initApi();
+                    ((App)getApplication()).baseEscoteiros();
                 } else {
 
                 }

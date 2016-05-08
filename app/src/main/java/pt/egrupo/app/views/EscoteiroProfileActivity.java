@@ -1,8 +1,10 @@
 package pt.egrupo.app.views;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -31,10 +35,10 @@ import retrofit2.Response;
 
 public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnClickListener{
 
-    Escoteiro e;
-    ArrayList<Progresso> p;
+    public Escoteiro e;
+    public ArrayList<Progresso> p;
     ArrayList<Progresso> mItems;
-    App app;
+    public App app;
 
     boolean fetchingProgresso = true;
 
@@ -71,10 +75,17 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
         ButterKnife.bind(this);
 
         String url = App.getBigAvatarUrl(e.getId());
-        Glide.with(this)
-                .load(url)
-                .placeholder(R.drawable.default_pic)
-                .into(ivCover);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Glide.with(this)
+//                    .load(url)
+//                    .into(ivCover);
+//        } else {
+            Glide.with(this)
+                    .load(url)
+                    .placeholder(R.drawable.default_pic)
+                    .into(ivCover);
+//        }
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +139,7 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
             }
 
             Bundle args = new Bundle();
-            args.putInt("etapa",etapa);
+            args.putInt("etapa", etapa);
 
             AssinarProvaDialog dialog = new AssinarProvaDialog();
             dialog.setArguments(args);
@@ -153,6 +164,12 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
             public void run() {
                 mItems = new ArrayList<>();
                 for(int k = 0 ; k < p.size() ; k++){
+                    Collections.sort(p.get(k).getProvas(), new Comparator<ProvaEtapa>() {
+                        @Override
+                        public int compare(ProvaEtapa provaEtapa, ProvaEtapa t1) {
+                            return provaEtapa.getProva() - t1.getProva();
+                        }
+                    });
                     mItems.add(new Progresso(p.get(k)));
                 }
 
@@ -160,7 +177,8 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
                     for(int j = 0 ; j < mItems.get(i).getTotal() ; j++){
 
                         if(!mItems.get(i).temProva(j+1)){
-                            ProvaEtapa temp = new ProvaEtapa(j,mItems.get(i).getEtapa(),mItems.get(i).getDivisao());
+                            ProvaEtapa temp = new ProvaEtapa(j+1,mItems.get(i).getEtapa(),mItems.get(i).getDivisao());
+
                             mItems.get(i).getProvas().add(j,temp);
                         }
 

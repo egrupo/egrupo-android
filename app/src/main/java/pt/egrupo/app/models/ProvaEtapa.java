@@ -1,5 +1,7 @@
 package pt.egrupo.app.models;
 
+import java.util.Objects;
+
 /**
  * Created by ruie on 04/05/16.
  */
@@ -28,7 +30,7 @@ public class ProvaEtapa {
         this.id = p.getId();
         this.prova = p.getProva();
         this.etapa = p.getEtapa();
-        this.divisao = p.getEtapa();
+        this.divisao = p.getDivisao();
         this.concluded_at = p.getConcluded_at();
     }
 
@@ -73,6 +75,21 @@ public class ProvaEtapa {
     }
 
     public boolean isConcluded(){
-        return concluded_at != null && !equals("");
+        return concluded_at != null && !concluded_at.equals("");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return prova == ((ProvaEtapa)o).getProva();
+    }
+
+    @Override
+    public int hashCode() {
+        return prova;
+    }
+
+    @Override
+    public String toString() {
+        return "Prova: "+prova+" da divisao "+divisao+" e etapa: "+etapa;
     }
 }

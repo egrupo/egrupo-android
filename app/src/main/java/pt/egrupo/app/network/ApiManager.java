@@ -51,7 +51,7 @@ public class ApiManager {
             .authenticator(new TokenAuthenticator(app))
             .addInterceptor(new Interceptor() {
                 @Override
-                public Response intercept(Interceptor.Chain chain) throws IOException {
+                public Response intercept(Chain chain) throws IOException {
 
                     Request request = chain.request();
                     if (request.method().equals("GET")) {

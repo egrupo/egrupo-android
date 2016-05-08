@@ -66,6 +66,7 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
             @Override
             public void onFailure(Call<List<Escoteiro>> call, Throwable t) {
                 onFetchDataFailure();
+                ELog.d("EscoteirosFrag",t.toString());
             }
         });
     }
@@ -146,13 +147,13 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
                 Escoteiro e = (Escoteiro)view.getTag();
                 Intent i = new Intent(mActivity, EscoteiroProfileActivity.class);
                 i.putExtra("escoteiro", e);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    ActivityOptionsCompat options = ActivityOptionsCompat.
-//                            makeSceneTransitionAnimation(this, imageView, getString(R.string.activity_image_trans));
-//                    startActivity(i, options.toBundle());
-//                } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.ivAvatar), "profilePic");
+                    startActivity(i, options.toBundle());
+                } else {
                     startActivity(i);
-//                }
+                }
             }
         }
 
