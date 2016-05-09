@@ -3,8 +3,13 @@ package pt.egrupo.app.views;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,9 @@ import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
 import pt.egrupo.app.models.Presenca;
+import pt.egrupo.app.utils.Globals;
+import pt.egrupo.app.utils.RoundedCornersTransformation;
+import pt.egrupo.app.utils.Utils;
 import pt.egrupo.app.widget.Info;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,11 +42,13 @@ public class AtividadeActivity extends EgrupoActivity {
     @Bind(R.id.infoInformaces)Info infoInformacoes;
     @Bind(R.id.infoDescricao)Info infoDescricao;
     @Bind(R.id.rlPresencas)RelativeLayout rlPresencas;
-    @Bind(R.id.vLoading)ProgressBar vLoading;
+    @Bind(R.id.llPresencaContainer)LinearLayout llPresencaContainer;
 
     App app;
     Atividade a;
     ArrayList<Presenca> presencas;
+
+    RoundedCornersTransformation mTransform;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +71,12 @@ public class AtividadeActivity extends EgrupoActivity {
         ButterKnife.bind(this);
 
         setData();
+
+        mTransform = new RoundedCornersTransformation(
+                Glide.get(this).getBitmapPool(),
+                Utils.convertDpToPixel(4, this),
+                0);
+
         fetchPresencas();
     }
 
@@ -94,6 +110,21 @@ public class AtividadeActivity extends EgrupoActivity {
 
     public void renderPresencas(){
 
+        for(int i = 0 ; i < presencas.size() ; i++){
+            View v = getLayoutInflater().inflate(R.layout.row_presenca,null);
+
+            ((TextView)v.findViewById(R.id.tvName)).setText(presencas.get(i).getEscoteiro().getNome());
+            ((TextView)v.findViewById(R.id.tvTipo)).setText(presencas.get(i).getLabel());
+            ((TextView)v.findViewById(R.id.tvTipo)).setTextColor(getResources().getColor(presencas.get(i).getColor()));
+            Glide.with(this)
+                    .load(presencas.get(i).getEscoteiro().getAvatarUrl())
+                    .bitmapTransform(mTransform)
+                    .into((ImageView) v.findViewById(R.id.ivAvatar));
+
+
+            llPresencaContainer.addView(v);
+        }
+
     }
 
     public void fetchPresencas(){
@@ -107,14 +138,12 @@ public class AtividadeActivity extends EgrupoActivity {
                     rlPresencas.setVisibility(View.GONE);
                     return;
                 }
-
-                vLoading.setVisibility(View.GONE);
                 renderPresencas();
             }
 
             @Override
             public void onFailure(Call<List<Presenca>> call, Throwable t) {
-                vLoading.setVisibility(View.GONE);
+
             }
         });
     }

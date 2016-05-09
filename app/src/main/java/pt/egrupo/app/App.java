@@ -106,16 +106,6 @@ public class App extends Application {
         return "http://api."+mPrefs.getString("slug","")+".egrupo.pt/v1.0/";
     }
 
-    public static String getAvatarUrl(int id){
-        String url ="http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?w=100&h=100&access_token="+App.getAccessToken();
-//        ELog.d("App", "Url for mini avatar is: " + url);
-        return url;
-    }
-
-    public static String getBigAvatarUrl(int id){
-        return "http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?access_token="+App.getAccessToken();
-    }
-
     public void baseEscoteiros(){
         api.getAllEscoteiros().enqueue(new Callback<List<Escoteiro>>() {
             @Override

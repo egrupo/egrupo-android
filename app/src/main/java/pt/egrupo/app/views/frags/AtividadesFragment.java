@@ -1,11 +1,13 @@
 package pt.egrupo.app.views.frags;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -99,12 +101,33 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
         @Override
         public void onBindViewHolderImpl(AtividadesViewHolder vh, int position) {
             Atividade a = mItems.get(position);
+
+            String color = mActivity.getRandomColor();
+
             vh.tvName.setText(a.getNome());
-            vh.tvLocal.setText(a.getLocal());
+
+            if(a.getLocal().equals("")){
+                vh.tvLocal.setVisibility(View.GONE);
+            } else {
+                vh.tvLocal.setVisibility(View.VISIBLE);
+                vh.tvLocal.setText(a.getLocal());
+            }
+
+            if(mActivity.useBlackText(color)){
+                vh.tvName.setTextColor(getResources().getColor(R.color.black));
+                vh.tvLocal.setTextColor(getResources().getColor(R.color.black));
+            } else {
+                vh.tvName.setTextColor(getResources().getColor(R.color.white));
+                vh.tvLocal.setTextColor(getResources().getColor(R.color.white));
+            }
+
             vh.tvTrimestre.setText(a.getTrimestre()+"º trimestre");
             vh.tvData.setText(a.getPerformed_at());
 
+            vh.rlTitleAtividadesContainer.setBackgroundColor(Color.parseColor(color));
+
             vh.cardContainer.setTag(a);
+
 
         }
 
@@ -115,6 +138,8 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             TextView tvData;
             TextView tvTrimestre;
             CardView cardContainer;
+            RelativeLayout rlTitleAtividadesContainer;
+
 
             public AtividadesViewHolder(View v) {
                 super(v);
@@ -124,6 +149,7 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
                 tvData = (TextView)v.findViewById(R.id.tvData);
                 tvTrimestre = (TextView)v.findViewById(R.id.tvTrimestre);
                 cardContainer = (CardView)v.findViewById(R.id.cardAtividades);
+                rlTitleAtividadesContainer = (RelativeLayout)v.findViewById(R.id.rlTitleAtividadesContainer);
                 cardContainer.setOnClickListener(this);
             }
 

@@ -120,6 +120,10 @@ public class HomeFragment extends Fragment {
                     } else {
                         cardLembretes.setVisibility(View.GONE);
                     }
+
+                    if(nAvisosAtividades == 0 && lembretes.size() == 0){
+                        //show view de Nao ha avisos nem lembretes!
+                    }
                 } else {
 
                 }

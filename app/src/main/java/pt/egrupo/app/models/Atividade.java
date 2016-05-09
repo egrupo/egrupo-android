@@ -3,6 +3,8 @@ package pt.egrupo.app.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import pt.egrupo.app.R;
+
 /**
  * Created by rsantos on 25/02/16.
  */

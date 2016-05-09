@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import pt.egrupo.app.App;
+
 /**
  * Created by rsantos on 25/02/16.
  */
@@ -237,6 +239,14 @@ public class Escoteiro implements Parcelable {
 
     public void setProgresso(List<Progresso> progresso) {
         this.progresso = progresso;
+    }
+
+    public String getAvatarUrl(){
+        return "http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?w=100&h=100&access_token="+App.getAccessToken();
+    }
+
+    public String getBigAvatarUrl(){
+        return "http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?access_token="+App.getAccessToken();
     }
 
     @Override

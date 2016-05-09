@@ -81,16 +81,24 @@
                 android:id="@+id/tvPresencas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Presencas"
+                android:text="Presenças"
                 android:textSize="18sp"/>
 
-            <ProgressBar
-                android:id="@+id/vLoading"
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:layout_below="@+id/tvPresencas"
-                android:layout_marginTop="16dp"
-                android:layout_centerHorizontal="true"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
+                android:background="@color/dividers"
+                />
+
+            <LinearLayout
+                android:id="@+id/llPresencaContainer"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
         </RelativeLayout>
 

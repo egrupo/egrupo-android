@@ -74,15 +74,13 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
 
         ButterKnife.bind(this);
 
-        String url = App.getBigAvatarUrl(e.getId());
-
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Glide.with(this)
 //                    .load(url)
 //                    .into(ivCover);
 //        } else {
             Glide.with(this)
-                    .load(url)
+                    .load(e.getBigAvatarUrl())
                     .placeholder(R.drawable.default_pic)
                     .into(ivCover);
 //        }
@@ -187,16 +185,6 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
 
             }
         }).start();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void setData(){

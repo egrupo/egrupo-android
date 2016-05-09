@@ -1,5 +1,7 @@
 package pt.egrupo.app.models;
 
+import pt.egrupo.app.R;
+
 /**
  * Created by ruie on 07/05/16.
  */
@@ -9,6 +11,7 @@ public class Presenca {
     int atividade_id;
     int user_id;
     int tipo;
+    Escoteiro escoteiro;
 
     public Presenca(){
 
@@ -44,5 +47,28 @@ public class Presenca {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public String getLabel(){
+        if(tipo == 1)
+            return "Presente";
+        else
+            return "Falta";
+    }
+
+    public int getColor(){
+        if(tipo == 1){
+            return R.color.presente;
+        } else {
+            return R.color.falta;
+        }
+    }
+
+    public Escoteiro getEscoteiro() {
+        return escoteiro;
+    }
+
+    public void setEscoteiro(Escoteiro escoteiro) {
+        this.escoteiro = escoteiro;
     }
 }

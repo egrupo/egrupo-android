@@ -43,6 +43,8 @@ import retrofit2.Response;
  */
 public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
 
+    RoundedCornersTransformation mTransform;
+
     @Override
     public void initView(View v) {
 
@@ -115,7 +117,7 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
             vh.tvIdAssociativo.setText(e.getId_associativo()+"");
 
             Glide.with(mActivity)
-                    .load(App.getAvatarUrl(e.getId()))
+                    .load(e.getAvatarUrl())
                     .bitmapTransform(mTransform)
                     .placeholder(R.drawable.default_pic)
                     .into(vh.ivAvatar);
@@ -158,6 +160,4 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
         }
 
     }
-
-    RoundedCornersTransformation mTransform;
 }
