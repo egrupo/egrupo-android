@@ -1,6 +1,9 @@
 package pt.egrupo.app.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,6 +35,8 @@ import retrofit2.Response;
  */
 public class AtividadeActivity extends EgrupoActivity {
 
+    public static final int CODE_MARCAR_PRESENCA = 1337;
+
     @Bind(R.id.infoLocal)Info infoLocal;
     @Bind(R.id.infoData)Info infoData;
     @Bind(R.id.infoTrimestre)Info infoTrimestre;
@@ -41,6 +46,8 @@ public class AtividadeActivity extends EgrupoActivity {
     @Bind(R.id.infoDescricao)Info infoDescricao;
     @Bind(R.id.rlPresencas)RelativeLayout rlPresencas;
     @Bind(R.id.llPresencaContainer)LinearLayout llPresencaContainer;
+
+    @Bind(R.id.fab)FloatingActionButton fab;
 
     App app;
     Atividade a;
@@ -69,6 +76,15 @@ public class AtividadeActivity extends EgrupoActivity {
         ButterKnife.bind(this);
 
         setData();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AtividadeActivity.this,MarcarPresencaActivity.class);
+                i.putParcelableArrayListExtra("presencas",presencas);
+                startActivityForResult(i, CODE_MARCAR_PRESENCA);
+            }
+        });
 
         mTransform = new RoundedCornersTransformation(
                 Glide.get(this).getBitmapPool(),
@@ -119,7 +135,6 @@ public class AtividadeActivity extends EgrupoActivity {
                     .bitmapTransform(mTransform)
                     .into((ImageView) v.findViewById(R.id.ivAvatar));
 
-
             llPresencaContainer.addView(v);
         }
 
@@ -144,5 +159,17 @@ public class AtividadeActivity extends EgrupoActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            if(requestCode == CODE_MARCAR_PRESENCA){
+                String presencas = data.getStringExtra("presencas");
+                String faltas = data.getStringExtra("faltas");
+            }
+        }
     }
 }

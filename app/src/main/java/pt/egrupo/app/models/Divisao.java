@@ -11,7 +11,7 @@ public class Divisao {
     public static final int CLA = 4;
     public static final int CHEFIA = 5;
 
-    public String getLabel(int divisao){
+    public static String getLabel(int divisao){
         switch (divisao){
             case ALCATEIA:
                 return "Alcateia";
@@ -27,7 +27,7 @@ public class Divisao {
         return "";
     };
 
-    public String getExtendedLabel(int divisao){
+    public static String getExtendedLabel(int divisao){
         switch (divisao){
             case ALCATEIA:
                 return "Alcateia";

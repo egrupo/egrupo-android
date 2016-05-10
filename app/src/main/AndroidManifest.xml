@@ -37,6 +37,12 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".views.MarcarPresencaActivity"
+            android:label="@string/title_activity_marcar_presenca"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="60d47bcb3a42744b1a7ba34a7e7e273a710ad9e8" />

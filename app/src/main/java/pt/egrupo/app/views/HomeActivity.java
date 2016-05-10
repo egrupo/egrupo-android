@@ -39,7 +39,6 @@ public class HomeActivity extends EgrupoActivity
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private TabsAdapter mAdapter;
-
     private ViewPager mViewPager;
 
     public static final int PAGE_HOME = 0;

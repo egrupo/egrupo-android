@@ -2,6 +2,7 @@ package pt.egrupo.app;
 
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,13 @@ public class EgrupoActivity extends AppCompatActivity {
 
     public AppBarLayout appBarLayout;
     public CoordinatorLayout mCoord;
+    public App app;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        app = (App)getApplication();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
