@@ -74,24 +74,10 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
 
         ButterKnife.bind(this);
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Glide.with(this)
-//                    .load(url)
-//                    .into(ivCover);
-//        } else {
-            Glide.with(this)
-                    .load(e.getBigAvatarUrl())
-                    .placeholder(R.drawable.default_pic)
-                    .into(ivCover);
-//        }
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Adicionar desafio", Snackbar.LENGTH_LONG).show();
-            }
-        });*/
+        Glide.with(this)
+                .load(e.getBigAvatarUrl())
+                .placeholder(R.drawable.default_pic)
+                .into(ivCover);
 
         findViewById(R.id.menu_etapa_1).setOnClickListener(this);
         findViewById(R.id.menu_etapa_2).setOnClickListener(this);

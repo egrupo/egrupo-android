@@ -5,7 +5,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,7 +20,6 @@ import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
 import pt.egrupo.app.models.Presenca;
-import pt.egrupo.app.utils.Globals;
 import pt.egrupo.app.utils.RoundedCornersTransformation;
 import pt.egrupo.app.utils.Utils;
 import pt.egrupo.app.widget.Info;

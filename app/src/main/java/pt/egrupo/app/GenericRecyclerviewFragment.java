@@ -62,7 +62,6 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
             setLayoutManager();
         }
 
-//        mSwipe.setColorSchemeResources(R.color.tradiio_red);
         mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -74,6 +73,7 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
             }
         });
 
+        //TODO need to add thse views
 //        vLoading = v.findViewById(R.id.vLoading);
 //        vError = v.findViewById(R.id.vError);
 
@@ -144,7 +144,6 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
 //                return;
             }
 
-//            showErrorView(R.drawable.error_image, getString(R.string.error_no_contents_title), getString(R.string.error_no_contents_message));
         }
     }
 
@@ -166,50 +165,19 @@ public abstract class GenericRecyclerviewFragment<Entity> extends Fragment imple
     public abstract int getEmptyIcon();
 
     public void showLoadingView(){
-        //TODO
-//        if(vLoading != null) {
-//            Animation anim = AnimationUtils.loadAnimation(mActivity, R.anim.rotation);
-//            anim.setRepeatCount(Animation.INFINITE);
-//            vLoading.findViewById(R.id.loading_image).startAnimation(anim);
-//            vLoading.setVisibility(View.VISIBLE);
-//        }
+        //TODO show loading view
     }
 
     public void hideLoadingView(){
-        //TODO
-//        if(vLoading != null)
-//            vLoading.setVisibility(View.GONE);
+        //TODO hide laoding view
     }
 
     private void showErrorView(int resourceId, String errorTitle, String errorMessage) {
-//        TODO
-//        ((ImageView) vError.findViewById(R.id.page_error_layout_image)).setImageResource(resourceId);
-//
-//        if (TextUtils.isEmpty(errorTitle)) {
-//            vError.findViewById(R.id.page_error_layout_title).setVisibility(View.GONE);
-//        } else {
-//            vError.findViewById(R.id.page_error_layout_title).setVisibility(View.VISIBLE);
-//            ((TPFontableTextView) vError.findViewById(R.id.page_error_layout_title)).setText(errorTitle);
-//        }
-//
-//        if (TextUtils.isEmpty(errorMessage)) {
-//            vError.findViewById(R.id.page_error_layout_message).setVisibility(View.GONE);
-//        } else {
-//            vError.findViewById(R.id.page_error_layout_message).setVisibility(View.VISIBLE);
-//            ((TPFontableTextView) vError.findViewById(R.id.page_error_layout_message)).setText(errorMessage);
-//        }
-//
-//        vError.setVisibility(View.VISIBLE);
-//        YoYo.with(Techniques.FadeIn)
-//                .duration(500)
-//                .interpolate(new DecelerateInterpolator())
-//                .playOn(vError);
+        //TODO add error message
     }
 
     public void hideErrorView(){
-        //TODO
-//        if(vError != null)
-//            vError.setVisibility(View.GONE);
+        //TODO hide error message
     }
 
 

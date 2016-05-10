@@ -31,9 +31,6 @@ public abstract class EndlessRecyclerViewAdapter<ViewHolderEntity,ModelEntity> e
     public EndlessRecyclerViewAdapter(Context context,ArrayList<ModelEntity> mItems) {
         this.mItems = mItems;
         this.mContext = context;
-
-//        anim = AnimationUtils.loadAnimation(context, R.anim.rotation);
-//        anim.setRepeatCount(Animation.INFINITE);
     }
 
     @Override
@@ -41,7 +38,7 @@ public abstract class EndlessRecyclerViewAdapter<ViewHolderEntity,ModelEntity> e
         View v;
 
         if(viewType == VIEW_FOOTER) {
-//            v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.discovery_loading, viewGroup, false);
+            //TODO add loading footer view
 
             FooterViewHolder vh = null;// = new FooterViewHolder(v);
             return vh;
@@ -54,7 +51,7 @@ public abstract class EndlessRecyclerViewAdapter<ViewHolderEntity,ModelEntity> e
     public void onBindViewHolder(RecyclerView.ViewHolder vh, int i) {
 
         if(getItemViewType(i) == VIEW_FOOTER) {
-//            ((FooterViewHolder)vh).vLoading.startAnimation(anim);
+
         } else {
             onBindViewHolderImpl((ViewHolderEntity) vh, i);
         }
@@ -78,12 +75,8 @@ public abstract class EndlessRecyclerViewAdapter<ViewHolderEntity,ModelEntity> e
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView vLoading;
-
         public FooterViewHolder(View v){
             super(v);
-
-//            vLoading = (ImageView)v.findViewById(R.id.loading_image);
         }
 
     }
