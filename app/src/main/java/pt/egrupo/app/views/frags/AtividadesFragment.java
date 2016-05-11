@@ -10,12 +10,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +17,9 @@ import ca.barrenechea.widget.recyclerview.decoration.DividerDecoration;
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 import pt.egrupo.app.App;
-import pt.egrupo.app.BaseDecorationFragment;
 import pt.egrupo.app.GenericRecyclerviewFragment;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
-import pt.egrupo.app.models.Escoteiro;
-import pt.egrupo.app.network.HTTPStatus;
-import pt.egrupo.app.network.SimpleTask;
-import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.endless.EndlessRecyclerViewAdapter;
 import pt.egrupo.app.views.AtividadeActivity;
 import retrofit2.Call;
