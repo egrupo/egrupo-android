@@ -14,7 +14,9 @@
     <color name="card_atividade_bg">#3F51B5</color>
     <string name="card_atividade_bg">#3F51B5</string>
     <color name="card_lembretes_bg">#2196F3</color>
+    <color name="row_header">#03A9F4</color>
 
+    <color name="transparent">#00FFFFFF</color>
 
     <color name="prova_done">#87D37C</color>
     <color name="prova_undone">#B8B8B8</color>

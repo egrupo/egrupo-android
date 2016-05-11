@@ -33,6 +33,9 @@ public interface EgrupoApi {
     @GET("atividade/{id}/presencas")
     Call<List<Presenca>> getPresencas(@Path("id")int id);
 
+    @POST("atividade/{id}/presencas")
+    Call<List<Presenca>> postPresencas(@Path("id")int id,@QueryMap Map<String,String> params);
+
     @GET("escoteiro/{id}/progresso")
     Call<List<Progresso>> getProgresso(@Path("id")int id);
 

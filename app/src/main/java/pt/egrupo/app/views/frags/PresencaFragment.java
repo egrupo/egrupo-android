@@ -138,9 +138,7 @@ public class PresencaFragment extends GenericRecyclerviewFragment<Escoteiro> {
             notifyDataSetChanged();
         }
 
-        public class MarcarPresencaViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener
-
-        {
+        public class MarcarPresencaViewHolder extends RecyclerView.ViewHolder implements CompoundButton.OnCheckedChangeListener{
 
             ImageView ivAvatar;
             TextView tvName;

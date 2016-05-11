@@ -28,7 +28,7 @@ public class Presenca implements Parcelable {
         atividade_id = in.readInt();
         user_id = in.readInt();
         tipo = in.readInt();
-//        escoteiro = in.readParcelable(Escoteiro.class.getClassLoader());
+        escoteiro = in.readParcelable(Escoteiro.class.getClassLoader());
     }
 
     public int getId() {
@@ -97,7 +97,7 @@ public class Presenca implements Parcelable {
         parcel.writeInt(atividade_id);
         parcel.writeInt(user_id);
         parcel.writeInt(tipo);
-//        parcel.writeParcelable(escoteiro,i);
+        parcel.writeParcelable(escoteiro,i);
     }
 
     public static final Creator<Presenca> CREATOR = new Creator<Presenca>() {

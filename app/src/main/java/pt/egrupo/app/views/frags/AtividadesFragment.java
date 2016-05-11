@@ -19,7 +19,11 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.barrenechea.widget.recyclerview.decoration.DividerDecoration;
+import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
+import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 import pt.egrupo.app.App;
+import pt.egrupo.app.BaseDecorationFragment;
 import pt.egrupo.app.GenericRecyclerviewFragment;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
@@ -38,9 +42,16 @@ import retrofit2.Response;
  */
 public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
 
+    private StickyHeaderDecoration decor;
+
     @Override
     public void initView(View v) {
+        final DividerDecoration divider = new DividerDecoration.Builder(this.getActivity())
+                .setColorResource(R.color.transparent)
+                .build();
 
+        lv.setHasFixedSize(true);
+        lv.addItemDecoration(divider);
     }
 
     @Override
@@ -65,7 +76,9 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
     @Override
     public void setContent() {
         AtividadesAdapter adapter = new AtividadesAdapter(mItems);
+        decor = new StickyHeaderDecoration(adapter);
         lv.setAdapter(adapter);
+        lv.addItemDecoration(decor,1);
     }
 
     @Override
@@ -83,7 +96,8 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
         return 0;
     }
 
-    public class AtividadesAdapter extends EndlessRecyclerViewAdapter<AtividadesAdapter.AtividadesViewHolder,Atividade> {
+    public class AtividadesAdapter extends EndlessRecyclerViewAdapter<AtividadesAdapter.AtividadesViewHolder,Atividade> implements
+            StickyHeaderAdapter<AtividadesAdapter.HeaderHolder> {
 
         public AtividadesAdapter(ArrayList<Atividade> items) {
             super(mActivity,items);
@@ -127,8 +141,24 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             vh.rlTitleAtividadesContainer.setBackgroundColor(Color.parseColor(color));
 
             vh.cardContainer.setTag(a);
+        }
 
+        @Override
+        public long getHeaderId(int position) {
+            return mItems.get(position).getTrimestre()-1;
+        }
 
+        @Override
+        public HeaderHolder onCreateHeaderViewHolder(ViewGroup parent) {
+            View view = getActivity().getLayoutInflater().inflate(R.layout.row_header, parent, false);
+            return new HeaderHolder(view);
+        }
+
+        @Override
+        public void onBindHeaderViewHolder(HeaderHolder vh, int position) {
+            int trimestre = mItems.get(position).getTrimestre();
+
+            vh.tvHeader.setText(trimestre+"ª Trimestre");
         }
 
         public class AtividadesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -161,5 +191,17 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             }
         }
 
+        class HeaderHolder extends RecyclerView.ViewHolder {
+            public TextView tvHeader;
+
+            public HeaderHolder(View v) {
+                super(v);
+                tvHeader = (TextView) v.findViewById(R.id.tvHeader);
+            }
+        }
+
+
     }
+
+
 }

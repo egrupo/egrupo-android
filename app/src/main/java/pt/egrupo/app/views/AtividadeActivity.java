@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +47,7 @@ public class AtividadeActivity extends EgrupoActivity {
     @Bind(R.id.infoDescricao)Info infoDescricao;
     @Bind(R.id.rlPresencas)RelativeLayout rlPresencas;
     @Bind(R.id.llPresencaContainer)LinearLayout llPresencaContainer;
+    @Bind(R.id.loading)ProgressBar loading;
 
     @Bind(R.id.fab)FloatingActionButton fab;
 
@@ -81,6 +83,7 @@ public class AtividadeActivity extends EgrupoActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AtividadeActivity.this,MarcarPresencaActivity.class);
+                i.putExtra("atividade",a);
                 i.putParcelableArrayListExtra("presencas",presencas);
                 startActivityForResult(i, CODE_MARCAR_PRESENCA);
             }
@@ -123,7 +126,7 @@ public class AtividadeActivity extends EgrupoActivity {
     }
 
     public void renderPresencas(){
-
+        llPresencaContainer.removeAllViews();
         for(int i = 0 ; i < presencas.size() ; i++){
             View v = getLayoutInflater().inflate(R.layout.row_presenca,null);
 
@@ -151,6 +154,7 @@ public class AtividadeActivity extends EgrupoActivity {
                     rlPresencas.setVisibility(View.GONE);
                     return;
                 }
+                loading.setVisibility(View.GONE);
                 renderPresencas();
             }
 
@@ -167,8 +171,8 @@ public class AtividadeActivity extends EgrupoActivity {
 
         if(resultCode == RESULT_OK){
             if(requestCode == CODE_MARCAR_PRESENCA){
-                String presencas = data.getStringExtra("presencas");
-                String faltas = data.getStringExtra("faltas");
+                presencas = data.getParcelableArrayListExtra("presencas");
+                renderPresencas();
             }
         }
     }

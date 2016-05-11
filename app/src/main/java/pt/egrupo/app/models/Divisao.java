@@ -10,6 +10,7 @@ public class Divisao {
     public static final int TEX = 3;
     public static final int CLA = 4;
     public static final int CHEFIA = 5;
+    public static final int GRUPO = 10;
 
     public static String getLabel(int divisao){
         switch (divisao){
@@ -23,6 +24,8 @@ public class Divisao {
                 return "Clã";
             case CHEFIA:
                 return "Chefia";
+            case GRUPO:
+                return "Grupo";
         }
         return "";
     };
