@@ -6,6 +6,6 @@ Contribuições são bem vindas, se te quiseres juntar ao projeto entra em conta
 
 Mais informações em http://egrupo.pt
 
-Brevement disponível na play store.
+Brevemente disponível na play store.
 ## Contactos
 Rui Santos - rui.santos@segundogrupo.com
