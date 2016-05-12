@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <plurals name="home_warning_atividades">
+        <item quantity="one">Tens %1$s atividade com presenças por marcar</item>
+        <item quantity="other">Tens %1$s atividades com presenças por marcar</item>
+    </plurals>
+    
+</resources>

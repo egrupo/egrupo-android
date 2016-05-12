@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_gray">#E9E9E9</color>
+
+    <color name="dividers">#B8B8B8</color>
+
+    <color name="card_atividade_bg">#3F51B5</color>
+    <string name="card_atividade_bg">#3F51B5</string>
+    <color name="card_lembretes_bg">#2196F3</color>
+    <color name="row_header">#03A9F4</color>
+
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="prova_done">#87D37C</color>
+    <color name="prova_undone">#B8B8B8</color>
+
+    <color name="presente">#32b554</color>
+    <color name="falta">#e2231a</color>
+
+    <array name="mdcolor_500">
+        <item name="red_500" type="color">#e51c23</item>
+        <item name="pink_500" type="color">#e91e63</item>
+        <item name="purple_500" type="color">#9c27b0</item>
+        <item name="deep_purple_500" type="color">#673ab7</item>
+        <item name="indigo_500" type="color">#3f51b5</item>
+        <item name="blue_500" type="color">#5677fc</item>
+        <item name="light_blue_500" type="color">#03a9f4</item>
+        <item name="cyan_500" type="color">#00bcd4</item>
+        <item name="teal_500" type="color">#009688</item>
+        <item name="green_500" type="color">#259b24</item>
+        <item name="light_green_500" type="color">#8bc34a</item>
+        <item name="lime_500" type="color">#cddc39</item>
+        <item name="yellow_500" type="color">#ffeb3b</item>
+        <item name="orange_500" type="color">#ff9800</item>
+        <item name="deep_orange_500" type="color">#ff5722</item>
+        <item name="brown_500" type="color">#795548</item>
+        <item name="grey_500" type="color">#9e9e9e</item>
+        <item name="blue_grey_500" type="color">#607d8b</item>
+    </array>
+</resources>

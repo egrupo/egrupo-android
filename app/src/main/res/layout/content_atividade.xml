@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:info="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".views.AtividadeActivity"
+    tools:showIn="@layout/activity_atividade">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="24dp">
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Local" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoData"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Data de realização" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoTrimestre"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Trimestre" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoDuracao"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Duração" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNoites"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Noites de campo" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoInformaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Informações" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Descricão" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlPresencas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            >
+
+            <TextView
+                android:id="@+id/tvPresencas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Presenças"
+                android:textSize="18sp"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tvPresencas"
+                android:background="@color/dividers"
+                />
+
+            <ProgressBar
+                android:id="@+id/loading"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/divider"
+                />
+
+            <LinearLayout
+                android:id="@+id/llPresencaContainer"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

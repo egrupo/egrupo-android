@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:info="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".views.EscoteiroProfileActivity"
+    tools:showIn="@layout/activity_escoteiro_profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--<ImageView-->
+                <!--android:id="@+id/ivIconPessoal"-->
+                <!--android:layout_width="24dp"-->
+                <!--android:layout_height="24dp"-->
+                <!--android:layout_marginLeft="16dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:background="@drawable/ic_info_pessoal" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="24dp">
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoIdAssociativo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Número Associativo" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNomeCompleto"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Nome Completo"/>
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNivelEscotista"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Nível Escotista" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoTotem"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Totem"/>
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoCargo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Cargo"/>
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoPatrulha"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Patrulha" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Email" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoTelemovel"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Telemóvel" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoBi"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="BI/CC" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoMorada"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    info:label="Morada" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
