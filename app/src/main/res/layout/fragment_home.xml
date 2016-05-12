@@ -110,6 +110,28 @@
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/llProximaAtividade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Próxima Atividade"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/dividers"
+                    />
+
+                <include layout="@layout/row_home_atividade" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -70,7 +70,13 @@ public class AssinarProvaDialog extends DialogFragment {
                         postProgresso(null);
                     } else {
                         DatePickerFragment f = new DatePickerFragment();
-                        f.setParams(AssinarProvaDialog.this);
+                        f.setParams(new DatePickerFragment.DateCallback() {
+                            @Override
+                            public void onDateSet(String date) {
+                                postProgresso(date);
+                                dismiss();
+                            }
+                        });
                         f.show(act.getSupportFragmentManager(), "dialog_data");
                     }
 

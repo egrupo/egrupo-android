@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="alcateia">#FFC400</color>
+    <color name="tes">#038857</color>
+    <color name="tex">#3C4285</color>
+    <color name="cla">#F44336</color>
+
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -11,8 +16,9 @@
 
     <color name="dividers">#B8B8B8</color>
 
-    <color name="card_atividade_bg">#3F51B5</color>
-    <string name="card_atividade_bg">#3F51B5</string>
+    <!--<color name="card_atividade_bg">#3F51B5</color>-->
+    <color name="card_atividade_bg">#ffffff</color>
+    <string name="card_atividade_bg">#9e9e9e</string>
     <color name="card_lembretes_bg">#2196F3</color>
     <color name="row_header">#03A9F4</color>
 

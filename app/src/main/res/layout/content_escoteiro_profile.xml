@@ -18,79 +18,107 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--<ImageView-->
-                <!--android:id="@+id/ivIconPessoal"-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="24dp"-->
-                <!--android:layout_marginLeft="16dp"-->
-                <!--android:layout_marginTop="16dp"-->
-                <!--android:background="@drawable/ic_info_pessoal" />-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="24dp">
+                android:layout_marginLeft="8dp">
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoIdAssociativo"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Número Associativo" />
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoNomeCompleto"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Nome Completo"/>
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoNivelEscotista"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Nível Escotista" />
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoTotem"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Totem"/>
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoCargo"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Cargo"/>
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoPatrulha"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Patrulha" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNotas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    info:label="Notas" />
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Email" />
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoTelemovel"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Telemóvel" />
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoBi"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="BI/CC" />
 
                 <pt.egrupo.app.widget.Info
                     android:id="@+id/infoMorada"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
                     info:label="Morada" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNomeEE1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    info:label="Nome EE 1" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoTelemEE1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    info:label="Telemóvel EE 1" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoNomeEE2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    info:label="Nome EE 2" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoTelemEE2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    info:label="Telemóvel EE 2" />
+
+                <pt.egrupo.app.widget.Info
+                    android:id="@+id/infoDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    info:label="Outras Informações" />
 
             </LinearLayout>
 

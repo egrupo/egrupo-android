@@ -1,5 +1,7 @@
 package pt.egrupo.app.models;
 
+import pt.egrupo.app.R;
+
 /**
  * Created by ruie on 27/02/16.
  */
@@ -44,6 +46,23 @@ public class Divisao {
                 return "Chefia";
         }
         return "";
+    }
+
+    public static int getColor(int divisao){
+        switch (divisao){
+            case ALCATEIA:
+                return R.color.alcateia;
+            case TES:
+                return R.color.tes;
+            case TEX:
+                return R.color.tex;
+            case CLA:
+                return R.color.cla;
+            case CHEFIA:
+                return R.color.white;
+        }
+
+        return R.color.colorAccent;
     }
 
 }

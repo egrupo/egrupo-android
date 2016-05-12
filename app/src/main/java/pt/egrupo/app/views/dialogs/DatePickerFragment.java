@@ -26,10 +26,10 @@ import retrofit2.Callback;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    AssinarProvaDialog dialog;
+    DateCallback mCallback;
 
-    public void setParams(AssinarProvaDialog dialog){
-        this.dialog = dialog;
+    public void setParams(DateCallback callback){
+        this.mCallback = callback;
     }
 
     @Override
@@ -46,7 +46,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
-        dialog.postProgresso(year+"-"+(month+1)+"-"+day);
-        dialog.dismiss();
+        mCallback.onDateSet(year+"-"+(month+1)+"-"+day);
+    }
+
+    interface DateCallback {
+        void onDateSet(String date);
     }
 }

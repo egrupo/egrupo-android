@@ -1,5 +1,6 @@
 package pt.egrupo.app.views.frags;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,10 +23,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pt.egrupo.app.App;
 import pt.egrupo.app.R;
+import pt.egrupo.app.models.Atividade;
 import pt.egrupo.app.models.Lembrete;
 import pt.egrupo.app.network.HTTPStatus;
 import pt.egrupo.app.network.SimpleTask;
 import pt.egrupo.app.utils.ELog;
+import pt.egrupo.app.views.AtividadeActivity;
 import pt.egrupo.app.views.HomeActivity;
 
 /**
@@ -40,8 +43,16 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.cardLembretes)CardView cardLembretes;
     @Bind(R.id.rlLembretesContainer)LinearLayout rlLembretesContainer;
 
+    //prox atividade
+    @Bind(R.id.llProximaAtividade) LinearLayout llProximaAtividade;
+    @Bind(R.id.tvName) TextView tvName;
+    @Bind(R.id.tvLocal) TextView tvLocal;
+    @Bind(R.id.tvTrimestre) TextView tvTrimestre;
+    @Bind(R.id.tvData) TextView tvData;
+
     int nAvisosAtividades = 0;
     ArrayList<Lembrete> lembretes;
+    Atividade proxima_atividade;
 
 
     @Nullable
@@ -87,6 +98,8 @@ public class HomeFragment extends Fragment {
                             lembretes.add(0,gson.fromJson(jarray.get(i).toString(),Lembrete.class));
                         }
 
+                        proxima_atividade = new Gson().fromJson(json.getJSONObject("proxima_atividade").toString(),Atividade.class);
+
                     } catch(JSONException e){
                         e.printStackTrace();
                     }
@@ -121,11 +134,35 @@ public class HomeFragment extends Fragment {
                         cardLembretes.setVisibility(View.GONE);
                     }
 
-                    if(nAvisosAtividades == 0 && lembretes.size() == 0){
-                        //show view de Nao ha avisos nem lembretes!
-                    }
-                } else {
+                    if(proxima_atividade == null){
+                        llProximaAtividade.setVisibility(View.GONE);
+                    } else {
+                        llProximaAtividade.setVisibility(View.VISIBLE);
+                        tvTrimestre.setText(proxima_atividade.getTrimestre() + "º trimestre");
+                        tvData.setText(proxima_atividade.getPerformed_at());
 
+                        tvName.setText(proxima_atividade.getNome());
+
+                        if("".equals(proxima_atividade.getLocal())){
+                            tvLocal.setVisibility(View.GONE);
+                        } else {
+                            tvLocal.setVisibility(View.VISIBLE);
+                            tvLocal.setText(proxima_atividade.getLocal());
+                        }
+
+                        llProximaAtividade.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent i = new Intent(getActivity(), AtividadeActivity.class);
+                                i.putExtra("atividade",proxima_atividade);
+                                startActivity(i);
+                            }
+                        });
+                    }
+
+//                    if(nAvisosAtividades == 0 && lembretes.size() == 0){
+//                        //show view de Nao ha avisos nem lembretes!
+//                    }
                 }
 
             }

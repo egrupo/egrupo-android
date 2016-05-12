@@ -35,6 +35,8 @@ public class Escoteiro implements Parcelable {
     @SerializedName("morada")String morada;
     @SerializedName("autoriza_imagem")int autoriza_imagem;
     @SerializedName("ficha_inscricao")int ficha_inscricao;
+    @SerializedName("descricao")String descricao;
+    @SerializedName("notas")String notas;
     List<Progresso> progresso;
 
     public Escoteiro(){
@@ -63,6 +65,8 @@ public class Escoteiro implements Parcelable {
         this.morada = in.readString();
         this.autoriza_imagem = in.readInt();
         this.ficha_inscricao = in.readInt();
+        this.descricao = in.readString();
+        this.notas = in.readString();
     }
 
     public int getId() {
@@ -241,6 +245,22 @@ public class Escoteiro implements Parcelable {
         this.progresso = progresso;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
     public String getAvatarUrl(){
         return "http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?w=100&h=100&access_token="+App.getAccessToken();
     }
@@ -277,6 +297,8 @@ public class Escoteiro implements Parcelable {
         dest.writeString(this.morada);
         dest.writeInt(this.autoriza_imagem);
         dest.writeInt(this.ficha_inscricao);
+        dest.writeString(this.descricao);
+        dest.writeString(this.notas);
     }
 
     public static final Creator<Escoteiro> CREATOR = new Creator<Escoteiro>() {

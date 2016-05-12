@@ -45,4 +45,7 @@ public interface EgrupoApi {
     @GET("escoteiros")
     Call<List<Escoteiro>> getAllEscoteiros();
 
+    @POST("atividade")
+    Call<List<Atividade>> createAtividade(@QueryMap Map<String,String> params);
+
 }

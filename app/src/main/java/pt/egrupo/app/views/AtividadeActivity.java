@@ -45,6 +45,7 @@ public class AtividadeActivity extends EgrupoActivity {
     @Bind(R.id.infoNoites)Info infoNoites;
     @Bind(R.id.infoInformaces)Info infoInformacoes;
     @Bind(R.id.infoDescricao)Info infoDescricao;
+    @Bind(R.id.infoPrograma)Info infoPrograma;
     @Bind(R.id.rlPresencas)RelativeLayout rlPresencas;
     @Bind(R.id.llPresencaContainer)LinearLayout llPresencaContainer;
     @Bind(R.id.loading)ProgressBar loading;
@@ -123,6 +124,10 @@ public class AtividadeActivity extends EgrupoActivity {
         if(a.getDescricao() != null && !a.getDescricao().equals("")){
             infoDescricao.setValue(a.getDescricao());
         } else infoDescricao.setVisibility(View.GONE);
+
+        if(a.getPrograma() != null && !a.getPrograma().equals("")){
+            infoPrograma.setValue(a.getPrograma());
+        } else infoPrograma.setVisibility(View.GONE);
     }
 
     public void renderPresencas(){

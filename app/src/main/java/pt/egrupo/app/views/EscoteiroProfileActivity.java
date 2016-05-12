@@ -53,6 +53,12 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
     @Bind(R.id.infoTelemovel) Info infoTelemovel;
     @Bind(R.id.infoNivelEscotista) Info infoNivelEscotista;
     @Bind(R.id.infoMorada) Info infoMorada;
+    @Bind(R.id.infoNomeEE1) Info infoNomeEE1;
+    @Bind(R.id.infoNomeEE2) Info infoNomeEE2;
+    @Bind(R.id.infoTelemEE1) Info infoTelemEE1;
+    @Bind(R.id.infoTelemEE2) Info infoTelemEE2;
+    @Bind(R.id.infoDescricao) Info infoDescricao;
+    @Bind(R.id.infoNotas) Info infoNotas;
     @Bind(R.id.fam) FloatingActionMenu fam;
 
     @Override
@@ -211,6 +217,30 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
         if(e.getMorada() != null && !e.getMorada().equals("")) {
             infoMorada.setValue("" + e.getMorada());
         } else infoMorada.setVisibility(View.GONE);
+
+        if(e.getNome_ee_1() != null && !e.getNome_ee_1().equals("")) {
+            infoNomeEE1.setValue("" + e.getNome_ee_1());
+        } else infoNomeEE1.setVisibility(View.GONE);
+
+        if(e.getTelem_ee_1() != null && !e.getTelem_ee_1().equals("")) {
+            infoTelemEE1.setValue("" + e.getTelem_ee_1());
+        } else infoTelemEE1.setVisibility(View.GONE);
+
+        if(e.getNome_ee_2() != null && !e.getNome_ee_2().equals("")) {
+            infoNomeEE2.setValue("" + e.getNome_ee_2());
+        } else infoNomeEE2.setVisibility(View.GONE);
+
+        if(e.getTelem_ee_2() != null && !e.getTelem_ee_2().equals("")) {
+            infoTelemEE2.setValue("" + e.getTelem_ee_2());
+        } else infoTelemEE2.setVisibility(View.GONE);
+
+        if(e.getDescricao() != null && !e.getDescricao().equals("")) {
+            infoDescricao.setValue("" + e.getDescricao());
+        } else infoDescricao.setVisibility(View.GONE);
+
+        if(e.getNotas() != null && !e.getNotas().equals("")) {
+            infoNotas.setValue("" + e.getNotas());
+        } else infoNotas.setVisibility(View.GONE);
     }
 
 }

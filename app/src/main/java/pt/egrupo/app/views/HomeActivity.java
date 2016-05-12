@@ -20,10 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import pt.egrupo.app.App;
 import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.TabsAdapter;
+import pt.egrupo.app.models.Atividade;
+import pt.egrupo.app.views.dialogs.AssinarProvaDialog;
+import pt.egrupo.app.views.dialogs.CriarAtividadeDialog;
 import pt.egrupo.app.views.frags.AtividadesFragment;
 import pt.egrupo.app.views.frags.EscoteirosFragment;
 import pt.egrupo.app.views.frags.HomeFragment;
@@ -48,6 +53,9 @@ public class HomeActivity extends EgrupoActivity
 
     FloatingActionButton fab;
 
+    //TODO Falta aqui um otto ou RxJava
+    AtividadesFragment fragmentAtividade;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +74,8 @@ public class HomeActivity extends EgrupoActivity
                         Snackbar.make(view, "Criar Escoteiro", Snackbar.LENGTH_SHORT).show();
                         break;
                     case PAGE_ATIVIDADES:
-                        Snackbar.make(view, "Criar Atividade", Snackbar.LENGTH_SHORT).show();
+                        CriarAtividadeDialog dialog = new CriarAtividadeDialog();
+                        dialog.show(getSupportFragmentManager(), "dialog_criar_atividade");
                         break;
                 }
 
@@ -90,7 +99,8 @@ public class HomeActivity extends EgrupoActivity
         mAdapter = new TabsAdapter(getSupportFragmentManager());
         mAdapter.addFragment(new HomeFragment(),"Início");
         mAdapter.addFragment(new EscoteirosFragment(),"Escoteiros");
-        mAdapter.addFragment(new AtividadesFragment(),"Atividades");
+        fragmentAtividade = new AtividadesFragment();
+        mAdapter.addFragment(fragmentAtividade,"Atividades");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -194,6 +204,9 @@ public class HomeActivity extends EgrupoActivity
         ((TextView)headerView.findViewById(R.id.tvEmail)).setText(App.getEmail());
     }
 
+    public void refreshAtividades(ArrayList<Atividade> atividades){
+        fragmentAtividade.refreshAtividades(atividades);
+    }
 
 
 }

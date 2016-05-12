@@ -20,6 +20,7 @@ import pt.egrupo.app.App;
 import pt.egrupo.app.GenericRecyclerviewFragment;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
+import pt.egrupo.app.models.Divisao;
 import pt.egrupo.app.utils.endless.EndlessRecyclerViewAdapter;
 import pt.egrupo.app.views.AtividadeActivity;
 import retrofit2.Call;
@@ -62,12 +63,26 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
         });
     }
 
+    public void refreshAtividades(ArrayList<Atividade> atividades){
+        mItems = new ArrayList<>();
+        mItems.addAll(atividades);
+        setContent();
+    }
+
     @Override
     public void setContent() {
-        AtividadesAdapter adapter = new AtividadesAdapter(mItems);
-        decor = new StickyHeaderDecoration(adapter);
-        lv.setAdapter(adapter);
-        lv.addItemDecoration(decor,1);
+
+        AtividadesAdapter adapter;
+        if(lv.getAdapter() == null){
+            adapter = new AtividadesAdapter(mItems);
+            decor = new StickyHeaderDecoration(adapter);
+            lv.setAdapter(adapter);
+            lv.addItemDecoration(decor,1);
+            return;
+        }
+
+        adapter = (AtividadesAdapter)lv.getAdapter();
+        adapter.setItems(mItems);
     }
 
     @Override
@@ -105,8 +120,6 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
         public void onBindViewHolderImpl(AtividadesViewHolder vh, int position) {
             Atividade a = mItems.get(position);
 
-            String color = mActivity.getRandomColor();
-
             vh.tvName.setText(a.getNome());
 
             if(a.getLocal().equals("")){
@@ -116,20 +129,25 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
                 vh.tvLocal.setText(a.getLocal());
             }
 
-            if(mActivity.useBlackText(color)){
-                vh.tvName.setTextColor(getResources().getColor(R.color.black));
-                vh.tvLocal.setTextColor(getResources().getColor(R.color.black));
-            } else {
-                vh.tvName.setTextColor(getResources().getColor(R.color.white));
-                vh.tvLocal.setTextColor(getResources().getColor(R.color.white));
-            }
-
             vh.tvTrimestre.setText(a.getTrimestre()+"º trimestre");
             vh.tvData.setText(a.getPerformed_at());
 
-            vh.rlTitleAtividadesContainer.setBackgroundColor(Color.parseColor(color));
+//            String color = mActivity.getRandomColor();
+//            if(mActivity.useBlackText(color)){
+//                vh.tvName.setTextColor(getResources().getColor(R.color.black));
+//                vh.tvLocal.setTextColor(getResources().getColor(R.color.black));
+//            } else {
+//                vh.tvName.setTextColor(getResources().getColor(R.color.white));
+//                vh.tvLocal.setTextColor(getResources().getColor(R.color.white));
+//            }
+//            vh.rlTitleAtividadesContainer.setBackgroundColor(Color.parseColor(color));
 
             vh.cardContainer.setTag(a);
+        }
+
+        public void setItems(ArrayList<Atividade> items){
+            this.mItems = items;
+            notifyDataSetChanged();
         }
 
         @Override
@@ -140,6 +158,7 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
         @Override
         public HeaderHolder onCreateHeaderViewHolder(ViewGroup parent) {
             View view = getActivity().getLayoutInflater().inflate(R.layout.row_header, parent, false);
+            view.setBackgroundResource(Divisao.getColor(App.getDivisao()));
             return new HeaderHolder(view);
         }
 
