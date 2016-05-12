@@ -27,7 +27,6 @@ import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.TabsAdapter;
 import pt.egrupo.app.models.Atividade;
-import pt.egrupo.app.views.dialogs.AssinarProvaDialog;
 import pt.egrupo.app.views.dialogs.CriarAtividadeDialog;
 import pt.egrupo.app.views.frags.AtividadesFragment;
 import pt.egrupo.app.views.frags.EscoteirosFragment;

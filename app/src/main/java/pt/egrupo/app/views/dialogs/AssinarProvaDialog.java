@@ -77,6 +77,7 @@ public class AssinarProvaDialog extends DialogFragment {
                                 dismiss();
                             }
                         });
+
                         f.show(act.getSupportFragmentManager(), "dialog_data");
                     }
 

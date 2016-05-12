@@ -241,6 +241,7 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
         if(e.getNotas() != null && !e.getNotas().equals("")) {
             infoNotas.setValue("" + e.getNotas());
         } else infoNotas.setVisibility(View.GONE);
+
     }
 
 }

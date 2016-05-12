@@ -128,6 +128,7 @@ public class AtividadeActivity extends EgrupoActivity {
         if(a.getPrograma() != null && !a.getPrograma().equals("")){
             infoPrograma.setValue(a.getPrograma());
         } else infoPrograma.setVisibility(View.GONE);
+
     }
 
     public void renderPresencas(){

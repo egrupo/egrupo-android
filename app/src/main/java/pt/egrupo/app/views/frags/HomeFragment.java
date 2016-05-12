@@ -1,6 +1,7 @@
 package pt.egrupo.app.views.frags;
 
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,11 +24,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pt.egrupo.app.App;
 import pt.egrupo.app.R;
+
 import pt.egrupo.app.models.Atividade;
+
 import pt.egrupo.app.models.Lembrete;
 import pt.egrupo.app.network.HTTPStatus;
 import pt.egrupo.app.network.SimpleTask;
 import pt.egrupo.app.utils.ELog;
+
 import pt.egrupo.app.views.AtividadeActivity;
 import pt.egrupo.app.views.HomeActivity;
 
@@ -115,7 +119,7 @@ public class HomeFragment extends Fragment {
                 if(code == HTTPStatus.OK){
                     if(nAvisosAtividades > 0){
                         cardAtividades.setVisibility(View.VISIBLE);
-                        tvAvisosAtividades.setText(getResources().getQuantityString(R.plurals.home_warning_atividades,nAvisosAtividades,nAvisosAtividades));
+                        tvAvisosAtividades.setText(getResources().getQuantityString(R.plurals.home_warning_atividades, nAvisosAtividades, nAvisosAtividades));
                     } else {
                         cardAtividades.setVisibility(View.GONE);
                     }
@@ -160,9 +164,9 @@ public class HomeFragment extends Fragment {
                         });
                     }
 
-//                    if(nAvisosAtividades == 0 && lembretes.size() == 0){
-//                        //show view de Nao ha avisos nem lembretes!
-//                    }
+
+                } else {
+
                 }
 
             }

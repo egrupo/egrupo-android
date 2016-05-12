@@ -132,16 +132,6 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             vh.tvTrimestre.setText(a.getTrimestre()+"º trimestre");
             vh.tvData.setText(a.getPerformed_at());
 
-//            String color = mActivity.getRandomColor();
-//            if(mActivity.useBlackText(color)){
-//                vh.tvName.setTextColor(getResources().getColor(R.color.black));
-//                vh.tvLocal.setTextColor(getResources().getColor(R.color.black));
-//            } else {
-//                vh.tvName.setTextColor(getResources().getColor(R.color.white));
-//                vh.tvLocal.setTextColor(getResources().getColor(R.color.white));
-//            }
-//            vh.rlTitleAtividadesContainer.setBackgroundColor(Color.parseColor(color));
-
             vh.cardContainer.setTag(a);
         }
 

@@ -132,6 +132,7 @@
                 <include layout="@layout/row_home_atividade" />
 
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

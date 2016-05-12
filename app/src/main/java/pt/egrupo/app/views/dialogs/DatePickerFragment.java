@@ -28,7 +28,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     DateCallback mCallback;
 
-    public void setParams(DateCallback callback){
+    public void setParams(DateCallback callback) {
         this.mCallback = callback;
     }
 
@@ -46,7 +46,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         // Do something with the date chosen by the user
-        mCallback.onDateSet(year+"-"+(month+1)+"-"+day);
+        mCallback.onDateSet(year + "-" + (month + 1) + "-" + day);
     }
 
     interface DateCallback {
