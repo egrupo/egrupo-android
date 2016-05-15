@@ -1,7 +1,6 @@
 package pt.egrupo.app.views.dialogs;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,13 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,7 +28,7 @@ import pt.egrupo.app.models.ProvaEtapa;
 import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.GridAutofitLayoutManager;
 import pt.egrupo.app.utils.Utils;
-import pt.egrupo.app.views.EscoteiroProfileActivity;
+import pt.egrupo.app.views.EscoteiroActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -40,7 +37,7 @@ import retrofit2.Callback;
  */
 public class AssinarProvaDialog extends DialogFragment {
 
-    EscoteiroProfileActivity act;
+    EscoteiroActivity act;
     int etapa;
 
     RecyclerView rvProvas;
@@ -95,7 +92,7 @@ public class AssinarProvaDialog extends DialogFragment {
         desafiosParaAssinar = new ArrayList<>();
         desafiosParaRemover = new ArrayList<>();
 
-        act = (EscoteiroProfileActivity)getActivity();
+        act = (EscoteiroActivity)getActivity();
         etapa = getArguments().getInt("etapa");
 
         View v = LayoutInflater.from(act).inflate(R.layout.dialog_assinar_prova, null);

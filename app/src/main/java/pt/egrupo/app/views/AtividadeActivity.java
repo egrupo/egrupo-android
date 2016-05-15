@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +26,7 @@ import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
 import pt.egrupo.app.models.Presenca;
+import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.RoundedCornersTransformation;
 import pt.egrupo.app.utils.Utils;
 import pt.egrupo.app.widget.Info;
@@ -36,6 +40,7 @@ import retrofit2.Response;
 public class AtividadeActivity extends EgrupoActivity {
 
     public static final int CODE_MARCAR_PRESENCA = 1337;
+    public static final int CODE_EDITAR_ATIVIDADE = 1338;
 
     @Bind(R.id.infoLocal)Info infoLocal;
     @Bind(R.id.infoData)Info infoData;
@@ -70,7 +75,7 @@ public class AtividadeActivity extends EgrupoActivity {
         app = (App)getApplication();
 
         if(getIntent().getExtras() != null){
-            a = getIntent().getExtras().getParcelable("atividade");
+            a = getIntent().getExtras().getParcelable(EXTRA_ATIVIDADE);
         }
 
         setTitle(a.getNome());
@@ -83,7 +88,7 @@ public class AtividadeActivity extends EgrupoActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(AtividadeActivity.this,MarcarPresencaActivity.class);
-                i.putExtra("atividade",a);
+                i.putExtra(EXTRA_ATIVIDADE,a);
                 i.putParcelableArrayListExtra("presencas",presencas);
                 startActivityForResult(i, CODE_MARCAR_PRESENCA);
             }
@@ -97,34 +102,62 @@ public class AtividadeActivity extends EgrupoActivity {
         fetchPresencas();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_atividade,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()){
+            case R.id.action_edit:
+                Intent i = new Intent(this,AtividadeEditActivity.class);
+                i.putExtra("atividade",a);
+                startActivityForResult(i,CODE_EDITAR_ATIVIDADE);
+                break;
+        }
+        return true;
+    }
+
     public void setData(){
         if(a.getLocal() != null && !a.getLocal().equals("")){
+            infoLocal.setVisibility(View.VISIBLE);
             infoLocal.setValue(a.getLocal());
         } else infoLocal.setVisibility(View.GONE);
 
         if(a.getPerformed_at() != null && !a.getPerformed_at().equals("")){
+            infoData.setVisibility(View.VISIBLE);
             infoData.setValue(a.getPerformed_at());
         } else infoData.setVisibility(View.GONE);
 
         infoTrimestre.setValue("" + a.getTrimestre());
 
         if(a.getDuracao() != null && !a.getDuracao().equals("")){
+            infoData.setVisibility(View.VISIBLE);
             infoDuracao.setValue(a.getDuracao());
         } else infoDuracao.setVisibility(View.GONE);
 
         if(a.getNoites() > 0){
+            infoNoites.setVisibility(View.VISIBLE);
             infoNoites.setValue(""+a.getNoites());
         } else infoNoites.setVisibility(View.GONE);
 
         if(a.getInformacoes() != null && !a.getInformacoes().equals("")){
+            infoInformacoes.setVisibility(View.VISIBLE);
             infoInformacoes.setValue(a.getInformacoes());
         } else infoInformacoes.setVisibility(View.GONE);
 
         if(a.getDescricao() != null && !a.getDescricao().equals("")){
+            infoDescricao.setVisibility(View.VISIBLE);
             infoDescricao.setValue(a.getDescricao());
         } else infoDescricao.setVisibility(View.GONE);
 
         if(a.getPrograma() != null && !a.getPrograma().equals("")){
+            infoPrograma.setVisibility(View.VISIBLE);
             infoPrograma.setValue(a.getPrograma());
         } else infoPrograma.setVisibility(View.GONE);
 
@@ -177,8 +210,20 @@ public class AtividadeActivity extends EgrupoActivity {
         if(resultCode == RESULT_OK){
             if(requestCode == CODE_MARCAR_PRESENCA){
                 presencas = data.getParcelableArrayListExtra("presencas");
-                renderPresencas();
+                if(presencas.size() == 0){
+                    rlPresencas.setVisibility(View.GONE);
+                } else {
+                    rlPresencas.setVisibility(View.VISIBLE);
+                    loading.setVisibility(View.GONE);
+                    renderPresencas();
+                }
+
+            } else if(requestCode == CODE_EDITAR_ATIVIDADE){
+                a = data.getParcelableExtra(EXTRA_ATIVIDADE);
+                setData();
             }
+        }  else {
+            ELog.d("AtividadeAct","Result Cancel!");
         }
     }
 }

@@ -3,7 +3,6 @@ package pt.egrupo.app.views.frags;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,30 +12,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import pt.egrupo.app.App;
 import pt.egrupo.app.GenericRecyclerviewFragment;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Escoteiro;
-import pt.egrupo.app.network.HTTPStatus;
-import pt.egrupo.app.network.SimpleTask;
 import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.RoundedCornersTransformation;
 import pt.egrupo.app.utils.Utils;
-import pt.egrupo.app.utils.endless.EndlessRecyclerOnScrollListener;
 import pt.egrupo.app.utils.endless.EndlessRecyclerViewAdapter;
-import pt.egrupo.app.views.EscoteiroProfileActivity;
+import pt.egrupo.app.utils.eventbus.RxBus;
+import pt.egrupo.app.utils.eventbus.events.EscoteiroCriadoEvent;
+import pt.egrupo.app.views.EscoteiroActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.functions.Action1;
 
 /**
  * Created by rsantos on 25/02/16.
@@ -52,6 +46,17 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
                 Glide.get(getActivity()).getBitmapPool(),
                 Utils.convertDpToPixel(4,mActivity),
                 0);
+
+        RxBus.instanceOf().toObserverable().subscribe(new Action1<Object>() {
+            @Override
+            public void call(Object o) {
+                if(o instanceof EscoteiroCriadoEvent){
+                    mItems = new ArrayList<>();
+                    mItems.addAll(((EscoteiroCriadoEvent)o).getEscoteiros());
+                    setContent();
+                }
+            }
+        });
     }
 
     @Override
@@ -147,8 +152,8 @@ public class EscoteirosFragment extends GenericRecyclerviewFragment<Escoteiro> {
             @Override
             public void onClick(View view) {
                 Escoteiro e = (Escoteiro)view.getTag();
-                Intent i = new Intent(mActivity, EscoteiroProfileActivity.class);
-                i.putExtra("escoteiro", e);
+                Intent i = new Intent(mActivity, EscoteiroActivity.class);
+                i.putExtra(mActivity.EXTRA_ESCOTEIRO, e);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptionsCompat options = ActivityOptionsCompat.
                             makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.ivAvatar), "profilePic");

@@ -182,4 +182,11 @@ public class Atividade implements Parcelable {
             return new Atividade[size];
         }
     };
+
+    public String toString(){
+        return getNome()+" - "+getDuracao()+" - "+getPerformed_at()+"\n"
+                +getInformacoes()+"\n"
+                +getDescricao()+"\n"
+                +getPrograma();
+    }
 }

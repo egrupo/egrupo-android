@@ -57,4 +57,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
     compile 'com.github.clans:fab:1.6.3'
     compile 'ca.barrenechea.header-decor:header-decor:0.2.6'
+
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
 }

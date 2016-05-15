@@ -23,13 +23,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.EscoteiroProfileActivity"
+            android:name=".views.EscoteiroActivity"
+            android:label="@string/title_activity_escoteiro_profile"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.EscoteiroEditActivity"
             android:label="@string/title_activity_escoteiro_profile"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".views.AtividadeActivity"
-            android:label="@string/title_activity_escoteiro_profile"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.AtividadeEditActivity"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity

@@ -173,7 +173,6 @@ public class MarcarPresencaActivity extends EgrupoActivity {
         app.api.postPresencas(a.getId(),mParams).enqueue(new Callback<List<Presenca>>() {
             @Override
             public void onResponse(Call<List<Presenca>> call, Response<List<Presenca>> response) {
-                setResult(RESULT_OK);
                 Intent i = new Intent();
                 ArrayList<Presenca> mResPresencas = new ArrayList<>();
                 mResPresencas.addAll(response.body());

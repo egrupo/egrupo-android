@@ -1,9 +1,13 @@
 package pt.egrupo.app.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -30,7 +34,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnClickListener{
+public class EscoteiroActivity extends EgrupoActivity implements View.OnClickListener{
+
+    public static final int CODE_EDITAR_ESCOTEIRO = 1337;
 
     public Escoteiro e;
     public ArrayList<Progresso> p;
@@ -61,7 +67,7 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_escoteiro_profile);
+        setContentView(R.layout.activity_escoteiro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,7 +76,7 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
         app = (App)getApplication();
 
         if(getIntent().getExtras() != null) {
-            e = getIntent().getExtras().getParcelable("escoteiro");
+            e = getIntent().getExtras().getParcelable(EXTRA_ESCOTEIRO);
         }
 
         setTitle(e.getNome());
@@ -106,6 +112,27 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
                 fetchingProgresso = false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_escoteiro_profile,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()){
+            case R.id.action_edit:
+                Intent i = new Intent(this,EscoteiroEditActivity.class);
+                i.putExtra(EXTRA_ESCOTEIRO,e);
+                startActivityForResult(i,CODE_EDITAR_ESCOTEIRO);
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -180,65 +207,94 @@ public class EscoteiroProfileActivity extends EgrupoActivity implements View.OnC
         infoIdAssociativo.setValue("" + e.getId_associativo());
 
         if(e.getNome_completo() != null && !e.getNome_completo().equals("")) {
+            infoNomeCompleto.setVisibility(View.VISIBLE);
             infoNomeCompleto.setValue("" + e.getNome_completo());
         } else infoNomeCompleto.setVisibility(View.GONE);
 
         if(e.getTotem()!= null && !e.getTotem().equals("")) {
+            infoTotem.setVisibility(View.VISIBLE);
             infoTotem.setValue("" + e.getTotem());
         } else infoTotem.setVisibility(View.GONE);
 
         if(e.getCargo() != null && !e.getCargo().equals("")) {
+            infoCargo.setVisibility(View.VISIBLE);
             infoCargo.setValue("" + e.getCargo());
         } else infoCargo.setVisibility(View.GONE);
 
         if(e.getPatrulha() != null && !e.getPatrulha().equals("")) {
+            infoPatrulha.setVisibility(View.VISIBLE);
             infoPatrulha.setValue("" + e.getPatrulha());
         } else infoPatrulha.setVisibility(View.GONE);
 
         if(e.getBi() != null && !e.getBi().equals("")) {
+            infoBi.setVisibility(View.VISIBLE);
             infoBi.setValue("" + e.getBi());
         } else infoBi.setVisibility(View.GONE);
 
         if(e.getTelemovel() != null && !e.getTelemovel().equals("")) {
+            infoTelemovel.setVisibility(View.VISIBLE);
             infoTelemovel.setValue("" + e.getTelemovel());
         } else infoTelemovel.setVisibility(View.GONE);
 
         if(e.getEmail() != null && !e.getEmail().equals("")) {
+            infoEmail.setVisibility(View.VISIBLE);
             infoEmail.setValue("" + e.getEmail());
         } else infoEmail.setVisibility(View.GONE);
 
         if(e.getNivel_escotista() != null && !e.getNivel_escotista().equals("")) {
+            infoNivelEscotista.setVisibility(View.VISIBLE);
             infoNivelEscotista.setValue("" + e.getNivel_escotista());
         } else infoNivelEscotista.setVisibility(View.GONE);
 
         if(e.getMorada() != null && !e.getMorada().equals("")) {
+            infoMorada.setVisibility(View.VISIBLE);
             infoMorada.setValue("" + e.getMorada());
         } else infoMorada.setVisibility(View.GONE);
 
         if(e.getNome_ee_1() != null && !e.getNome_ee_1().equals("")) {
+            infoNomeEE1.setVisibility(View.VISIBLE);
             infoNomeEE1.setValue("" + e.getNome_ee_1());
         } else infoNomeEE1.setVisibility(View.GONE);
 
         if(e.getTelem_ee_1() != null && !e.getTelem_ee_1().equals("")) {
+            infoTelemEE1.setVisibility(View.VISIBLE);
             infoTelemEE1.setValue("" + e.getTelem_ee_1());
         } else infoTelemEE1.setVisibility(View.GONE);
 
         if(e.getNome_ee_2() != null && !e.getNome_ee_2().equals("")) {
+            infoNomeEE2.setVisibility(View.VISIBLE);
             infoNomeEE2.setValue("" + e.getNome_ee_2());
         } else infoNomeEE2.setVisibility(View.GONE);
 
         if(e.getTelem_ee_2() != null && !e.getTelem_ee_2().equals("")) {
+            infoTelemEE2.setVisibility(View.VISIBLE);
             infoTelemEE2.setValue("" + e.getTelem_ee_2());
         } else infoTelemEE2.setVisibility(View.GONE);
 
         if(e.getDescricao() != null && !e.getDescricao().equals("")) {
+            infoDescricao.setVisibility(View.VISIBLE);
             infoDescricao.setValue("" + e.getDescricao());
         } else infoDescricao.setVisibility(View.GONE);
 
         if(e.getNotas() != null && !e.getNotas().equals("")) {
+            infoNotas.setVisibility(View.VISIBLE);
             infoNotas.setValue("" + e.getNotas());
         } else infoNotas.setVisibility(View.GONE);
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+            if(requestCode == CODE_EDITAR_ESCOTEIRO){
+                e = data.getParcelableExtra(EXTRA_ESCOTEIRO);
+                setData();
+            }
+
+        } else {
+            ELog.d("EscoteiroAct","Result Cancel!");
+        }
+    }
 }

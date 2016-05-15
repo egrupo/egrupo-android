@@ -32,9 +32,12 @@ public class Escoteiro implements Parcelable {
     @SerializedName("email")String email;
     @SerializedName("telemovel")String telemovel;
     @SerializedName("bi")String bi;
+    @SerializedName("nif")String nif;
     @SerializedName("morada")String morada;
     @SerializedName("autoriza_imagem")int autoriza_imagem;
     @SerializedName("ficha_inscricao")int ficha_inscricao;
+    @SerializedName("data_nascimento")String data_nascimento;
+    @SerializedName("entrada_grupo")String entrada_grupo;
     @SerializedName("descricao")String descricao;
     @SerializedName("notas")String notas;
     List<Progresso> progresso;
@@ -62,9 +65,12 @@ public class Escoteiro implements Parcelable {
         this.email = in.readString();
         this.telemovel = in.readString();
         this.bi = in.readString();
+        this.nif = in.readString();
         this.morada = in.readString();
         this.autoriza_imagem = in.readInt();
         this.ficha_inscricao = in.readInt();
+        this.data_nascimento = in.readString();
+        this.entrada_grupo = in.readString();
         this.descricao = in.readString();
         this.notas = in.readString();
     }
@@ -261,6 +267,30 @@ public class Escoteiro implements Parcelable {
         this.notas = notas;
     }
 
+    public String getNif() {
+        return nif;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public String getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(String data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
+
+    public String getEntrada_grupo() {
+        return entrada_grupo;
+    }
+
+    public void setEntrada_grupo(String entrada_grupo) {
+        this.entrada_grupo = entrada_grupo;
+    }
+
     public String getAvatarUrl(){
         return "http://api." + App.getOrganizationSlug()+".egrupo.pt/v1.0/avatar/"+id+"?w=100&h=100&access_token="+App.getAccessToken();
     }
@@ -294,9 +324,12 @@ public class Escoteiro implements Parcelable {
         dest.writeString(this.email);
         dest.writeString(this.telemovel);
         dest.writeString(this.bi);
+        dest.writeString(this.nif);
         dest.writeString(this.morada);
         dest.writeInt(this.autoriza_imagem);
         dest.writeInt(this.ficha_inscricao);
+        dest.writeString(this.data_nascimento);
+        dest.writeString(this.entrada_grupo);
         dest.writeString(this.descricao);
         dest.writeString(this.notas);
     }

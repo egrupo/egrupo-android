@@ -5,24 +5,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-
-import okhttp3.Response;
-import pt.egrupo.app.App;
-import pt.egrupo.app.models.Progresso;
-import pt.egrupo.app.models.ProvaEtapa;
-import pt.egrupo.app.network.EgrupoResponse;
-import pt.egrupo.app.utils.ELog;
-import pt.egrupo.app.views.EscoteiroProfileActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -49,7 +33,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         mCallback.onDateSet(year + "-" + (month + 1) + "-" + day);
     }
 
-    interface DateCallback {
+    public interface DateCallback {
         void onDateSet(String date);
     }
 }

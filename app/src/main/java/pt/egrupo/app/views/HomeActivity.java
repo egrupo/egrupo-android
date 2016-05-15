@@ -52,9 +52,6 @@ public class HomeActivity extends EgrupoActivity
 
     FloatingActionButton fab;
 
-    //TODO Falta aqui um otto ou RxJava
-    AtividadesFragment fragmentAtividade;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +95,7 @@ public class HomeActivity extends EgrupoActivity
         mAdapter = new TabsAdapter(getSupportFragmentManager());
         mAdapter.addFragment(new HomeFragment(),"Início");
         mAdapter.addFragment(new EscoteirosFragment(),"Escoteiros");
-        fragmentAtividade = new AtividadesFragment();
-        mAdapter.addFragment(fragmentAtividade,"Atividades");
+        mAdapter.addFragment(new AtividadesFragment(),"Atividades");
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -118,12 +114,13 @@ public class HomeActivity extends EgrupoActivity
                         fab.hide();
                         break;
                     case PAGE_ESCOTEIROS:
-                        fab.show();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_escoteiro, getTheme()));
-                        } else {
-                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_escoteiro));
-                        }
+                        fab.hide();
+//                        fab.show();
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_escoteiro, getTheme()));
+//                        } else {
+//                            fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_add_escoteiro));
+//                        }
                         break;
                     case PAGE_ATIVIDADES:
                         fab.show();
@@ -202,10 +199,5 @@ public class HomeActivity extends EgrupoActivity
         ((TextView)headerView.findViewById(R.id.tvName)).setText(App.getUsername());
         ((TextView)headerView.findViewById(R.id.tvEmail)).setText(App.getEmail());
     }
-
-    public void refreshAtividades(ArrayList<Atividade> atividades){
-        fragmentAtividade.refreshAtividades(atividades);
-    }
-
 
 }

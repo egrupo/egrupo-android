@@ -13,6 +13,9 @@ import android.view.MenuItem;
  */
 public class EgrupoActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ESCOTEIRO = "escoteiro";
+    public static final String EXTRA_ATIVIDADE = "atividade";
+
     public AppBarLayout appBarLayout;
     public CoordinatorLayout mCoord;
     public App app;

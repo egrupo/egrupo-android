@@ -22,10 +22,13 @@ import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
 import pt.egrupo.app.models.Divisao;
 import pt.egrupo.app.utils.endless.EndlessRecyclerViewAdapter;
+import pt.egrupo.app.utils.eventbus.RxBus;
+import pt.egrupo.app.utils.eventbus.events.AtividadeCriadaEvent;
 import pt.egrupo.app.views.AtividadeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.functions.Action1;
 
 /**
  * Created by rsantos on 25/02/16.
@@ -42,6 +45,17 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
 
         lv.setHasFixedSize(true);
         lv.addItemDecoration(divider);
+
+        RxBus.instanceOf().toObserverable().subscribe(new Action1<Object>() {
+            @Override
+            public void call(Object o) {
+                if(o instanceof AtividadeCriadaEvent){
+                    mItems = new ArrayList<>();
+                    mItems.addAll(((AtividadeCriadaEvent)o).getAtividades());
+                    setContent();
+                }
+            }
+        });
     }
 
     @Override
@@ -61,12 +75,6 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
                 onFetchDataFailure();
             }
         });
-    }
-
-    public void refreshAtividades(ArrayList<Atividade> atividades){
-        mItems = new ArrayList<>();
-        mItems.addAll(atividades);
-        setContent();
     }
 
     @Override
@@ -184,7 +192,7 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), AtividadeActivity.class);
-                i.putExtra("atividade",(Atividade)view.getTag());
+                i.putExtra(mActivity.EXTRA_ATIVIDADE,(Atividade)view.getTag());
                 startActivity(i);
             }
         }

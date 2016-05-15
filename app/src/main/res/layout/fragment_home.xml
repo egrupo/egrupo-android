@@ -3,8 +3,6 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/light_gray"
     android:paddingTop="@dimen/activity_vertical_margin">
@@ -24,6 +22,8 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 card_view:cardCornerRadius="4dp">
 
                 <LinearLayout
@@ -34,7 +34,7 @@
                     <RelativeLayout
                         android:id="@+id/rlTitleAtividadesContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="40dp"
                         android:background="@color/card_atividade_bg">
 
                         <TextView
@@ -45,7 +45,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="8dp"
                             android:layout_marginLeft="16dp"
-                            android:textColor="@android:color/white"
+                            android:textColor="@color/black"
                             android:textSize="22sp" />
 
                     </RelativeLayout>
@@ -73,6 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 card_view:cardCornerRadius="4dp">
 
                 <LinearLayout
@@ -83,7 +85,7 @@
                     <RelativeLayout
                         android:id="@+id/rlTitleLembretesContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_height="40dp"
                         android:background="@color/card_lembretes_bg">
 
                         <TextView
@@ -115,18 +117,25 @@
                 android:id="@+id/llProximaAtividade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
                 android:orientation="vertical"
+                android:visibility="gone"
                 >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="8dp"
                     android:text="Próxima Atividade"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/dividers"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/colorAccent"
                     />
 
                 <include layout="@layout/row_home_atividade" />

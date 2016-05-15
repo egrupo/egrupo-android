@@ -18,8 +18,10 @@ import java.util.List;
 import pt.egrupo.app.App;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
+import pt.egrupo.app.models.Escoteiro;
 import pt.egrupo.app.utils.eventbus.RxBus;
 import pt.egrupo.app.utils.eventbus.events.AtividadeCriadaEvent;
+import pt.egrupo.app.utils.eventbus.events.EscoteiroCriadoEvent;
 import pt.egrupo.app.views.HomeActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,11 +30,12 @@ import retrofit2.Response;
 /**
  * Created by ruie on 12/05/16.
  */
-public class CriarAtividadeDialog extends DialogFragment {
+public class CriarEscoteiroDialog extends DialogFragment {
 
     HomeActivity act;
 
     EditText etNome;
+    EditText etIdAssociativo;
 
     @Override
     public void onStart(){
@@ -44,43 +47,40 @@ public class CriarAtividadeDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     //validar input
+
+                    if("".equals(etIdAssociativo.getText().toString())){
+                        Toast.makeText(act, "Tens de inserir um número associativo", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if("".equals(etNome.getText().toString())){
                         Toast.makeText(act, "Tens de inserir um nome", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-
-                    DatePickerFragment f = new DatePickerFragment();
-                    f.setParams(new DatePickerFragment.DateCallback() {
-                        @Override
-                        public void onDateSet(String date) {
-                            createAtividade(date);
-                            dismiss();
-                        }
-                    });
-                    f.show(act.getSupportFragmentManager(), "dialog_data");
-
+                    createEscoteiro();
+                    dismiss();
                 }
             });
         }
     }
 
-    public void createAtividade(String date){
+    public void createEscoteiro(){
         HashMap<String,String> mParams = new HashMap<>();
         mParams.put("nome",etNome.getText().toString());
+        mParams.put("id_associativo",etIdAssociativo.getText().toString());
         mParams.put("divisao", ""+App.getDivisao());
-        mParams.put("performed_at",date);
 
-        act.app.api.createAtividade(mParams).enqueue(new Callback<List<Atividade>>() {
+        act.app.api.createEscoteiro(mParams).enqueue(new Callback<List<Escoteiro>>() {
             @Override
-            public void onResponse(Call<List<Atividade>> call, Response<List<Atividade>> response) {
-                ArrayList<Atividade> temp = new ArrayList<>();
+            public void onResponse(Call<List<Escoteiro>> call, Response<List<Escoteiro>> response) {
+                ArrayList<Escoteiro> temp = new ArrayList<>();
                 temp.addAll(response.body());
-                RxBus.instanceOf().send(new AtividadeCriadaEvent(temp));
+                RxBus.instanceOf().send(new EscoteiroCriadoEvent(temp));
             }
 
             @Override
-            public void onFailure(Call<List<Atividade>> call, Throwable t) {
+            public void onFailure(Call<List<Escoteiro>> call, Throwable t) {
 
             }
         });
@@ -91,16 +91,17 @@ public class CriarAtividadeDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        
         act = (HomeActivity)getActivity();
 
-        View v = LayoutInflater.from(act).inflate(R.layout.dialog_criar_atividade, null);
+        View v = LayoutInflater.from(act).inflate(R.layout.dialog_criar_escoteiro, null);
 
+        etIdAssociativo = (EditText)v.findViewById(R.id.etIdAssociativo);
         etNome = (EditText)v.findViewById(R.id.etName);
 
         builder.setView(v);
-        builder.setTitle("Criar Atividade");
-        builder.setPositiveButton("Escolher Data",new DialogInterface.OnClickListener() {
+        builder.setTitle("Criar Escoteiro");
+        builder.setPositiveButton("Criar",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User cancelled the dialog
                 //assinar stuffs
