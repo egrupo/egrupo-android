@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -122,53 +123,28 @@ public class EscoteiroEditActivity extends EgrupoActivity {
 
         HashMap<String,String> mParams = new HashMap<>();
 
-        if(!etIdAssociativo.getText().toString().equals(""))
+        if(etIdAssociativo.getText().toString().equals("")){
+            Toast.makeText(this,"Este escoteiro tem de ter um Número Associativo!",Toast.LENGTH_SHORT).show();
+            return;
+        } else {
             mParams.put("id_associativo",etIdAssociativo.getText().toString());
+        }
 
-        if(!etNomeCompleto.getText().toString().equals(""))
-            mParams.put("nome_completo",etNomeCompleto.getText().toString());
-
-        if(!etTotem.getText().toString().equals(""))
-            mParams.put("totem",etTotem.getText().toString());
-
-        if(!etCargo.getText().toString().equals(""))
-            mParams.put("cargo",etCargo.getText().toString());
-
-        if(!etPatrulha.getText().toString().equals(""))
-            mParams.put("patrulha",etPatrulha.getText().toString());
-
-        if(!etBi.getText().toString().equals(""))
-            mParams.put("bi",etBi.getText().toString());
-
-        if(!etEmail.getText().toString().equals(""))
-            mParams.put("email",etEmail.getText().toString());
-
-        if(!etNivelEscotista.getText().toString().equals(""))
-            mParams.put("nivel_escotista",etNivelEscotista.getText().toString());
-
-        if(!etMorada.getText().toString().equals(""))
-            mParams.put("morada",etMorada.getText().toString());
-
-        if(!etNomeEE1.getText().toString().equals(""))
-            mParams.put("nome_ee_1",etNomeEE1.getText().toString());
-
-        if(!etNomeEE2.getText().toString().equals(""))
-            mParams.put("nome_ee_2",etNomeEE2.getText().toString());
-
-        if(!etTelemEE1.getText().toString().equals(""))
-            mParams.put("telem_ee_1",etTelemEE1.getText().toString());
-
-        if(!etTelemEE2.getText().toString().equals(""))
-            mParams.put("telem_ee_2",etTelemEE2.getText().toString());
-
-        if(!etDescricao.getText().toString().equals(""))
-            mParams.put("descricao",etDescricao.getText().toString());
-
-        if(!etNotas.getText().toString().equals(""))
-            mParams.put("notas",etNotas.getText().toString());
-
-        if(!etTelemovel.getText().toString().equals(""))
-            mParams.put("telemovel",etTelemovel.getText().toString());
+        mParams.put("nome_completo",etNomeCompleto.getText().toString());
+        mParams.put("totem",etTotem.getText().toString());
+        mParams.put("cargo",etCargo.getText().toString());
+        mParams.put("patrulha",etPatrulha.getText().toString());
+        mParams.put("bi",etBi.getText().toString());
+        mParams.put("email",etEmail.getText().toString());
+        mParams.put("nivel_escotista",etNivelEscotista.getText().toString());
+        mParams.put("morada",etMorada.getText().toString());
+        mParams.put("nome_ee_1",etNomeEE1.getText().toString());
+        mParams.put("nome_ee_2",etNomeEE2.getText().toString());
+        mParams.put("telem_ee_1",etTelemEE1.getText().toString());
+        mParams.put("telem_ee_2",etTelemEE2.getText().toString());
+        mParams.put("descricao",etDescricao.getText().toString());
+        mParams.put("notas",etNotas.getText().toString());
+        mParams.put("telemovel",etTelemovel.getText().toString());
 
         app.api.updateEscoteiro(e.getId(),mParams).enqueue(new Callback<Escoteiro>() {
             @Override

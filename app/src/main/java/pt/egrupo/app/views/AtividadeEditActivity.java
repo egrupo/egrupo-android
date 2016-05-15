@@ -17,6 +17,7 @@ import pt.egrupo.app.App;
 import pt.egrupo.app.EgrupoActivity;
 import pt.egrupo.app.R;
 import pt.egrupo.app.models.Atividade;
+import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.views.dialogs.DatePickerFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,7 +55,7 @@ public class AtividadeEditActivity extends EgrupoActivity {
         app = (App)getApplication();
 
         if(getIntent().getExtras() != null){
-            a = getIntent().getExtras().getParcelable("atividade");
+            a = getIntent().getExtras().getParcelable(EXTRA_ATIVIDADE);
         }
 
         setTitle(a.getNome());
@@ -99,8 +100,7 @@ public class AtividadeEditActivity extends EgrupoActivity {
         if(!"".equals(a.getPerformed_at()))
             etData.setText(a.getPerformed_at());
 
-        if(a.getNoites_campo() > 0)
-            etNoitesCampo.setText(""+a.getNoites_campo());
+        etNoitesCampo.setText(""+a.getNoites_campo());
 
         if(!"".equals(a.getInformacoes()))
             etInformacoes.setText(a.getInformacoes());
@@ -124,34 +124,26 @@ public class AtividadeEditActivity extends EgrupoActivity {
 
         HashMap<String,String> mParams = new HashMap<>();
 
-        //lets add the params
-        if(!etLocal.getText().toString().equals(""))
-            mParams.put("local",etLocal.getText().toString());
+        mParams.put("local",etLocal.getText().toString());
+        mParams.put("duracao",etDuracao.getText().toString());
 
-        if(!etDuracao.getText().toString().equals(""))
-            mParams.put("duracao",etDuracao.getText().toString());
-
-        if(!etNoitesCampo.getText().toString().equals(""))
+        if(etNoitesCampo.getText().toString().equals("")){
+            mParams.put("noites_campo","0");
+        } else {
             mParams.put("noites_campo",etNoitesCampo.getText().toString());
+        }
 
-        if(!etData.getText().toString().equals(""))
-            mParams.put("performed_at",etData.getText().toString());
-
-        if(!etInformacoes.getText().toString().equals(""))
-            mParams.put("infos",etInformacoes.getText().toString());
-
-        if(!etDescricao.getText().toString().equals(""))
-            mParams.put("descricao",etDescricao.getText().toString());
-
-        if(!etPrograma.getText().toString().equals(""))
-            mParams.put("programa",etPrograma.getText().toString());
+        mParams.put("performed_at",etData.getText().toString());
+        mParams.put("infos",etInformacoes.getText().toString());
+        mParams.put("descricao",etDescricao.getText().toString());
+        mParams.put("programa",etPrograma.getText().toString());
 
         app.api.updateAtividade(a.getId(),mParams).enqueue(new Callback<Atividade>() {
             @Override
             public void onResponse(Call<Atividade> call, Response<Atividade> response) {
                 Intent i = new Intent();
                 a = response.body();
-                i.putExtra("atividade", a);
+                i.putExtra(EXTRA_ATIVIDADE, a);
                 setResult(RESULT_OK, i);
                 AtividadeEditActivity.this.finish();
             }

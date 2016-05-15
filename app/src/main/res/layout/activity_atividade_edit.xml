@@ -35,10 +35,12 @@
             android:id="@+id/llEditInfoContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginLeft="8dp">
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -54,6 +56,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -69,6 +74,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -85,6 +93,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -103,6 +114,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -116,6 +130,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -129,6 +146,9 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
