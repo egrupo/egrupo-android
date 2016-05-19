@@ -203,6 +203,12 @@ public class AtividadesFragment extends GenericRecyclerviewFragment<Atividade> {
             public HeaderHolder(View v) {
                 super(v);
                 tvHeader = (TextView) v.findViewById(R.id.tvHeader);
+
+                if(App.getDivisao() == Divisao.CHEFIA){
+                    tvHeader.setTextColor(mActivity.getResources().getColor(R.color.black));
+                } else {
+                    tvHeader.setTextColor(mActivity.getResources().getColor(R.color.white));
+                }
             }
         }
 

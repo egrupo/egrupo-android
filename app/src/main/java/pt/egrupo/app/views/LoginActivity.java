@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -43,11 +44,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import pt.egrupo.app.App;
 import pt.egrupo.app.R;
+import pt.egrupo.app.models.Token;
 import pt.egrupo.app.models.User;
 import pt.egrupo.app.network.HTTPStatus;
 import pt.egrupo.app.network.SimpleTask;
 import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.Globals;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -56,9 +61,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    App app;
 
     // UI references.
     @Bind(R.id.username)EditText mUsernameView;
@@ -72,9 +75,44 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(App.isLogged()){
-            goToHome();
+        app = (App)getApplication();
+        //if is time to refresh, refresh. else:
+
+        ELog.d("LoginAct","Expiring Time: "+App.getAccessTokenExpireTime());
+        ELog.d("LoginAct","Now :"+System.currentTimeMillis());
+
+        if(App.isLogged() && System.currentTimeMillis() >= App.getAccessTokenExpireTime()){//now is after expire time, which means, it expired!
+            ELog.d("LoginAct","Refreshing the token");
+            HashMap<String,String> params = new HashMap<>();
+            params.put("refresh_token",App.getRefreshToken());
+            params.put("client_id", Globals.CLIENT_ID);
+            params.put("client_secret",Globals.CLIENT_SECRET);
+            params.put("grant_type","refresh_token");
+            //refresh the token
+            app.api.refreshToken(params).enqueue(new Callback<Token>() {
+                @Override
+                public void onResponse(Call<Token> call, Response<Token> response) {
+                    showProgress(false);
+                    App.saveAccessToken(response.body().getAccess_token());
+                    App.saveRefreshToken(response.body().getRefresh_token());
+                    App.saveAccessTokenExpireTime(response.body().getExpires_in());
+                    goToHome();
+                }
+
+                @Override
+                public void onFailure(Call<Token> call, Throwable t) {
+
+                }
+            });
+            showProgress(true);
+            return;
+        } else {
+            ELog.d("LoginAct","Going straight outta home!");
+            if(App.isLogged()){
+                goToHome();
+            }
         }
+
 
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -186,6 +224,7 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject response = new JSONObject(result);
                         App.saveAccessToken(response.getString("access_token"));
                         App.saveRefreshToken(response.getString("refresh_token"));
+                        App.saveAccessTokenExpireTime(response.getLong("expires_in"));
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
@@ -251,6 +290,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void goToHome(){
+        ELog.d(this,"Going Home");
         Intent i = new Intent(this,HomeActivity.class);
         startActivity(i);
         this.finish();

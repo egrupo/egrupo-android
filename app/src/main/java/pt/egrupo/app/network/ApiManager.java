@@ -2,12 +2,8 @@ package pt.egrupo.app.network;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.RequestBody;
-
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.Authenticator;
 import okhttp3.FormBody;
@@ -19,9 +15,7 @@ import okhttp3.Response;
 import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import pt.egrupo.app.App;
-import pt.egrupo.app.R;
 import pt.egrupo.app.models.Token;
-import pt.egrupo.app.utils.ELog;
 import pt.egrupo.app.utils.Globals;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -94,7 +88,8 @@ public class ApiManager {
 
                     Token token = app.api.refreshToken(params).execute().body();
                     App.saveAccessToken(token.getAccess_token());
-                    App.saveRefreshToken(token.getRefres_token());
+                    App.saveRefreshToken(token.getRefresh_token());
+                    App.saveAccessTokenExpireTime(token.getExpires_in());
 
                     // Add new header to rejected request and retry it
                     if(response.request().method().equals("GET")){

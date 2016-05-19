@@ -9,6 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.services.common.SystemCurrentTimeProvider;
 import pt.egrupo.app.models.Escoteiro;
 import pt.egrupo.app.models.User;
 import pt.egrupo.app.network.ApiManager;
@@ -43,7 +44,14 @@ public class App extends Application {
         }
     }
 
+    public static long getAccessTokenExpireTime(){
+        return mPrefs.getLong("at_expires_at",0);
+    }
 
+    public static void saveAccessTokenExpireTime(long expires_at){
+        long expireTime = System.currentTimeMillis()+(expires_at*1000);
+        mPrefs.edit().putLong("at_expires_at",expireTime).commit();
+    }
 
     public static String getAccessToken(){
         return mPrefs.getString("access_token","");
