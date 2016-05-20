@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#3535d8</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#38b5a6</color>
 
     <color name="alcateia">#FFC400</color>
     <color name="tes">#038857</color>
     <color name="tex">#3C4285</color>
     <color name="cla">#F44336</color>
+
+    <color name="egrupo_blue">#3535d8</color>
+    <color name="egrupo_green">#38b5a6</color>
+    <color name="egrupo_gray">#333333</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
