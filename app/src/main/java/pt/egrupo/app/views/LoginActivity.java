@@ -92,7 +92,6 @@ public class LoginActivity extends AppCompatActivity {
             app.api.refreshToken(params).enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
-                    showProgress(false);
                     App.saveAccessToken(response.body().getAccess_token());
                     App.saveRefreshToken(response.body().getRefresh_token());
                     App.saveAccessTokenExpireTime(response.body().getExpires_in());
@@ -104,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             });
-            showProgress(true);
             return;
         } else {
             ELog.d("LoginAct","Going straight outta home!");

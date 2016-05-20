@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">egrupo</string>
+    <string name="app_name">eGrupo</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Username</string>
