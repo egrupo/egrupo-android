@@ -10,6 +10,7 @@ Contribuições são bem vindas, se te quiseres juntar ao projeto entra em conta
 Android não é contigo? Experimenta um destes outros projetos:
 
 **Web** - https://github.com/egrupo/egrupo-web
+
 **iOS** - https://github.com/egrupo/egrupo-ios
 
 ## Contactos ##
